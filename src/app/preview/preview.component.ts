@@ -9,6 +9,7 @@ import { PredictionsService } from '../predictions.service';
 export class PreviewComponent implements OnInit {
   currentInput: string;
   imgUrl: any;
+  imgCanvas: any;
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -24,16 +25,7 @@ export class PreviewComponent implements OnInit {
   }
   
   drawBox() {
-    var image = new Image();
-
-    // When the image has loaded, draw it to the canvas
-    image.onload = function() {
-      // draw image...
-    }
-
-    // Now set the source of the image that we want to load
-    image.src = this.imgUrl
-    this.renderPredictions(image, [{"bbox": [100, 100, 200, 200]}])
+    this.renderPredictions([{"bbox": [100, 100, 200, 200]}])
   }
 
   onFileSelected(event) {
@@ -44,30 +36,40 @@ export class PreviewComponent implements OnInit {
       })
 
       this.currentInput = files[0].name;
-      var reader = new FileReader();
+      console.log(files[0]);
+      const reader = new FileReader();
       reader.readAsDataURL(files[0]); 
       reader.onload = (_event) => { 
         this.imgUrl = reader.result; 
+        const image = new Image();
+        image.src = this.imgUrl;
+        this.imgCanvas = image
+        image.onload = function() {
+          const canvas = <HTMLCanvasElement> document.getElementById("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width  = image.width;
+          canvas.height = image.height;
+          ctx.drawImage(image,0, 0,image.width,image.height);
+        }
       }
     }
   }
 
 
-  renderPredictions = (image, predictions) => {
+  renderPredictions = (predictions) => {
     const canvas = <HTMLCanvasElement> document.getElementById("canvas");
 
     const ctx = canvas.getContext("2d");
 
-    canvas.width  = 300;
-    canvas.height = 300;
+    canvas.width  = this.imgCanvas.width;
+    canvas.height = this.imgCanvas.height;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     // Font options.
     const font = "16px sans-serif";
     ctx.font = font;
     ctx.textBaseline = "top";
-    //ctx.drawImage(this.video,0, 0,300,300);
-    ctx.drawImage(image,0, 0,300,300);
+    ctx.drawImage(this.imgCanvas, 0, 0,this.imgCanvas.width,this.imgCanvas.height);
 
     predictions.forEach(prediction => {
       const x = prediction.bbox[0];
