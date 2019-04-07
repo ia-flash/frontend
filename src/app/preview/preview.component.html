@@ -24,13 +24,35 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="testFunction()" class="button is-link">test</button>
+          <button (click)="testFunction()" class="button is-info">test get</button>
         </div>
         <div class="level-item">
-          <button (click)="drawBox()" class="button is-link">box</button>
+          <button (click)="drawBox()" class="button is-link">Box</button>
+        </div>
+        <div class="level-item">
+          <button (click)="drawPrediction()" class="button is-primary">Prediction</button>
         </div>
       </div>
     </nav>
-    <canvas id="canvas"></canvas>
+    <div class="columns is-multiline">
+      <div class="column">
+        <canvas id="canvas"></canvas>
+      </div>
+      <div class="column is-4" *ngIf="probabilities">
+        <div *ngFor="let probability of probabilities">
+          <div class="columns is-mobile">
+            <div class="column is-5">
+              {{ probability.class }}
+            </div>
+            <div class="column is-5">
+              <progress class="progress is-primary" value="{{ probability.prob * 100 }}" max="100"></progress>
+            </div>
+            <div class="column is-2">
+              {{ probability.prob *100 }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

@@ -10,6 +10,7 @@ export class PreviewComponent implements OnInit {
   currentInput: string;
   imgUrl: any;
   imgCanvas: any;
+  probabilities: any;
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -25,7 +26,22 @@ export class PreviewComponent implements OnInit {
   }
   
   drawBox() {
-    this.renderPredictions([{"bbox": [100, 100, 200, 200]}])
+    this.renderPredictions([
+      {"bbox": [100, 100, 200, 200], "class": "car"}, 
+      {"bbox": [200, 150, 200, 200], "class": "truck"}
+    ])
+  }
+
+  drawPrediction() {
+    this.renderPredictions([
+      {"bbox": [100, 100, 200, 200], "class": "clio"}, 
+    ])
+    this.probabilities = [
+      {'prob': 0.8, 'class': 'clio'},
+      {'prob': 0.1, 'class': 'megane scenic 2'},
+      {'prob': 0.05, 'class': 'Q3'},
+      {'prob': 0.02, 'class': 'scenic'},
+    ]
   }
 
   onFileSelected(event) {
