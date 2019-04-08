@@ -13,9 +13,16 @@ export class PredictionsService {
     return this.http.get(`${environment.api}`);
   }
 
-  sendImage(files) {
+  objectDection(files) {
     const formData: FormData = new FormData();
-    formData.append('file', files[0], files[0].name);
-    return this.http.post(`${environment.api}/image`, formData);
+    formData.append('image', files[0], files[0].name);
+    return this.http.post(`${environment.api}/object_detection`, formData);
   }
+
+  classPrediction(files) {
+    const formData: FormData = new FormData();
+    formData.append('image', files[0], files[0].name);
+    return this.http.post(`${environment.api}/predict`, formData);
+  }
+
 }

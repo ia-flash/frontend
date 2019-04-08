@@ -11,11 +11,12 @@ export class PreviewComponent implements OnInit {
   imgUrl: any;
   imgCanvas: any;
   probabilities: any;
+  files: FileList;
 
   constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
-    this.testFunction()
+    //this.testFunction()
   }
 
   testFunction() {
@@ -25,31 +26,38 @@ export class PreviewComponent implements OnInit {
     });
   }
   
-  drawBox() {
-    this.renderPredictions([
-      {"bbox": [100, 100, 200, 200], "class": "car"}, 
-      {"bbox": [200, 150, 200, 200], "class": "truck"}
-    ])
+  drawBoxes() {
+    this.predictionService.objectDection(this.files).subscribe(result => {
+      console.log(result);
+      this.renderPredictions(result)
+    });
+    //this.renderPredictions([
+    //  {"bbox": [100, 100, 200, 200], "class": "car"}, 
+    //  {"bbox": [200, 150, 200, 200], "class": "truck"}
+    //])
   }
 
   drawPrediction() {
-    this.renderPredictions([
-      {"bbox": [100, 100, 200, 200], "class": "clio"}, 
-    ])
-    this.probabilities = [
-      {'prob': 0.8, 'class': 'clio'},
-      {'prob': 0.1, 'class': 'megane scenic 2'},
-      {'prob': 0.05, 'class': 'Q3'},
-      {'prob': 0.02, 'class': 'scenic'},
-    ]
+    //this.renderPredictions([
+    //  {"bbox": [100, 100, 200, 200], "class": "clio"}, 
+    //])
+    this.predictionService.classPrediction(this.files).subscribe(result => {
+      this.probabilities = result['prediction']
+      this.renderPredictions(result['boxes'])
+    })
+    //this.probabilities = [
+    //  {'prob': 0.8, 'class': 'clio'},
+    //  {'prob': 0.1, 'class': 'megane scenic 2'},
+    //  {'prob': 0.05, 'class': 'Q3'},
+    //  {'prob': 0.02, 'class': 'scenic'},
+    //]
   }
 
   onFileSelected(event) {
+    this.files = event.target.files;
     const files: FileList = event.target.files;
     if(files.length > 0) {
-      this.predictionService.sendImage(files).subscribe(result => {
-        console.log(result);
-      })
+      this.probabilities = null
 
       this.currentInput = files[0].name;
       console.log(files[0]);
