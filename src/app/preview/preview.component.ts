@@ -12,6 +12,8 @@ export class PreviewComponent implements OnInit {
   imgCanvas: any;
   probabilities: any;
   files: FileList;
+  loadingDetect: boolean;
+  loadingPredict: boolean;
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -27,8 +29,10 @@ export class PreviewComponent implements OnInit {
   }
   
   drawBoxes() {
+    this.loadingDetect = !this.loadingDetect;
     this.predictionService.objectDection(this.files).subscribe(result => {
       console.log(result);
+      this.loadingDetect = !this.loadingDetect;
       this.renderPredictions(result)
     });
     //this.renderPredictions([
@@ -38,12 +42,14 @@ export class PreviewComponent implements OnInit {
   }
 
   drawPrediction() {
+    this.loadingPredict = !this.loadingPredict;
     //this.renderPredictions([
     //  {"bbox": [100, 100, 200, 200], "class": "clio"}, 
     //])
     this.predictionService.classPrediction(this.files).subscribe(result => {
       console.log(result)
       if ('prediction' in result) {
+        this.loadingPredict = !this.loadingPredict;
         this.probabilities = result['prediction']
         this.renderPredictions(result['boxes'])
       }
