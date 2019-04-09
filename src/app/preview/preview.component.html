@@ -48,7 +48,7 @@
               <progress class="progress is-primary" value="{{ probability.prob * 100 }}" max="100"></progress>
             </div>
             <div class="column is-2">
-              {{ probability.prob *100 }}
+              {{ probability.prob * 100 | number : '1.2' }}
             </div>
           </div>
         </div>

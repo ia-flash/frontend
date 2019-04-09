@@ -42,8 +42,11 @@ export class PreviewComponent implements OnInit {
     //  {"bbox": [100, 100, 200, 200], "class": "clio"}, 
     //])
     this.predictionService.classPrediction(this.files).subscribe(result => {
-      this.probabilities = result['prediction']
-      this.renderPredictions(result['boxes'])
+      console.log(result)
+      if ('prediction' in result) {
+        this.probabilities = result['prediction']
+        this.renderPredictions(result['boxes'])
+      }
     })
     //this.probabilities = [
     //  {'prob': 0.8, 'class': 'clio'},
