@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PreviewComponent } from './preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SivnormComponent } from './sivnorm/sivnorm.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PreviewComponent
+    PreviewComponent,
+    SivnormComponent
   ],
   imports: [
     BrowserModule,

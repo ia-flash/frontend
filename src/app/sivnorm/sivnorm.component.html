@@ -1,0 +1,113 @@
+
+<section class="section">
+  <div class="container">
+    <h2 class="title">
+      Singulier
+    </h2>
+    <nav class="level">
+      <div class="level-item">
+        <div class="field">
+          <label class="label"> Marque</label>
+          <div class="control">
+            <input class="input" placeholder="marque" [value]="marque" (input)="marque = $event.target.value">
+          </div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="field">
+          <label class="label"> Modele</label>
+          <div class="control">
+            <input class="input" placeholder="modele" [value]="modele" (input)="modele = $event.target.value">
+          </div>
+        </div>
+      </div>
+      <div class="level-item has-text-centered" *ngIf="clean_marque">
+        <div>
+          <p class="heading">Marque SIV</p>
+          <p class="title">{{ clean_marque }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered" *ngIf="clean_modele">
+        <div>
+          <p class="heading">Modele SIV</p>
+          <p class="title">{{ clean_modele }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered" *ngIf="score">
+        <div>
+          <p class="heading">Score</p>
+          <p class="title">{{ score }}</p>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <nav class="level">
+      <div class="level-item">
+        <button class="button is-primary" (click)="onClickMe()">Nettoyer marque et modèle</button>
+      </div>
+    </nav>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title">
+      Par lot
+    </h2>
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <div class="field file has-name">
+            <label class="file-label">
+              <input (change)="onFileSelected($event)" class="file-input" type="file" name="file" id="file">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose a file…
+                </span>
+              </span>
+              <span class="file-name" id="filename">{{ currentInput }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="level-right">
+        <div class="level-item">
+          <button class="button is-primary" (click)="clickCsv()">Nettoyer csv</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <table class="table" *ngIf="resultCsv">
+      <thead>
+        <tr>
+          <th><abbr>Marque</abbr></th>
+          <th><abbr>Modele</abbr></th>
+          <th><abbr>Score</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of resultCsv">
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+

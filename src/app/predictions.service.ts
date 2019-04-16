@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
+export interface SivnormResponse {
+  marque: string;
+  modele: string;
+  score: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,4 +31,13 @@ export class PredictionsService {
     return this.http.post(`${environment.api}/predict`, formData);
   }
 
+  callSivnorm(marque, modele) {
+    return this.http.get<SivnormResponse>(`${environment.sivnorm}/norm?marque=${marque}&modele=${modele}`);
+  }
+
+  callSivnormCsv(files) {
+    const formData: FormData = new FormData();
+    formData.append('file', files[0], files[0].name);
+    return this.http.post(`${environment.sivnorm}/norm`, formData, {responseType: 'text'});
+  }
 }
