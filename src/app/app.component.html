@@ -12,11 +12,11 @@
       </div>
     </div>
     <div class="hero-foot">
-      <nav class="tabs">
+      <nav class="tabs is-boxed">
         <div class="container">
           <ul>
-            <li class="is-active"><a href="/preview">IA Flash</a></li>
-            <li><a href="/sivnorm">SivNorm</a></li>
+            <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a routerLink="preview">IA Flash</a></li>
+            <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a routerLink="sivnorm">SivNorm</a></li>
           </ul>
         </div>
       </nav>
