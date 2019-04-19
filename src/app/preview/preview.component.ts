@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
+import { PredBox } from '../predbox';
 
 @Component({
   selector: 'app-preview',
@@ -10,15 +11,16 @@ export class PreviewComponent implements OnInit {
   currentInput: string;
   imgUrl: any;
   imgCanvas: any;
-  probabilities: any;
+  probabilities: PredBox[];
   files: FileList;
   loadingDetect: boolean;
   loadingPredict: boolean;
+  colors: string[] = ["is-primary","is-danger", "is-warning","is-link", "is-info", "is-success"]
+  colorsHX: string[] = ["#20B2AA", "#DC5379", "#FFCA00","#264BEC", "#00BFFF","#17981a"]
 
   constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
-    //this.testFunction()
   }
 
   testFunction() {
@@ -35,31 +37,18 @@ export class PreviewComponent implements OnInit {
       this.loadingDetect = !this.loadingDetect;
       this.renderPredictions(result)
     });
-    //this.renderPredictions([
-    //  {"bbox": [100, 100, 200, 200], "class": "car"}, 
-    //  {"bbox": [200, 150, 200, 200], "class": "truck"}
-    //])
   }
 
   drawPrediction() {
     this.loadingPredict = !this.loadingPredict;
-    //this.renderPredictions([
-    //  {"bbox": [100, 100, 200, 200], "class": "clio"}, 
-    //])
-    this.predictionService.classPrediction(this.files).subscribe(result => {
-      console.log(result)
-      if ('prediction' in result) {
-        this.loadingPredict = !this.loadingPredict;
-        this.probabilities = result['prediction']
-        this.renderPredictions(result['boxes'])
+    this.predictionService.classPrediction(this.files).subscribe(predictions => {
+      this.loadingPredict = !this.loadingPredict;
+      this.probabilities = predictions;
+      console.log(predictions)
+      if (predictions.length > 0) {
+        this.renderPredictions(predictions)
       }
     })
-    //this.probabilities = [
-    //  {'prob': 0.8, 'class': 'clio'},
-    //  {'prob': 0.1, 'class': 'megane scenic 2'},
-    //  {'prob': 0.05, 'class': 'Q3'},
-    //  {'prob': 0.02, 'class': 'scenic'},
-    //]
   }
 
   onFileSelected(event) {
@@ -104,28 +93,30 @@ export class PreviewComponent implements OnInit {
     ctx.textBaseline = "top";
     ctx.drawImage(this.imgCanvas, 0, 0,this.imgCanvas.width,this.imgCanvas.height);
 
+    let index = 0;
     predictions.forEach(prediction => {
-      const x = prediction.bbox[0];
-      const y = prediction.bbox[1];
-      const width = prediction.bbox[2];
-      const height = prediction.bbox[3];
+      const x = prediction.x1;
+      const y = prediction.y1;
+      const width = prediction.x2 - prediction.x1;
+      const height = prediction.y2 - prediction.y1;
       // Draw the bounding box.
-      ctx.strokeStyle = "#00FFFF";
+      ctx.strokeStyle = this.colorsHX[index] //"#00FFFF";
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, width, height);
       // Draw the label background.
-      ctx.fillStyle = "#00FFFF";
-      const textWidth = ctx.measureText(prediction.class).width;
+      ctx.fillStyle = this.colorsHX[index] //"#00FFFF";
+      const textWidth = ctx.measureText(prediction.label).width;
       const textHeight = parseInt(font, 10); // base 10
       ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+      index+=1;
     });
 
     predictions.forEach(prediction => {
-      const x = prediction.bbox[0];
-      const y = prediction.bbox[1];
+      const x = prediction.x1;
+      const y = prediction.y1;
       // Draw the text last to ensure it's on top.
       ctx.fillStyle = "#000000";
-      ctx.fillText(prediction.class, x, y);
+      ctx.fillText(prediction.label, x, y);
     });
   };
 

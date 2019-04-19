@@ -36,16 +36,16 @@
         <canvas id="canvas"></canvas>
       </div>
       <div class="column is-4" *ngIf="probabilities">
-        <div *ngFor="let probability of probabilities">
-          <div class="columns is-mobile">
+        <div *ngFor="let probability of probabilities; let predNum = index" class="upspace">
+          <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
             <div class="column is-5">
-              {{ probability.class }}
+              {{ probability.pred[i] }}
             </div>
             <div class="column is-5">
-              <progress class="progress is-primary" value="{{ probability.prob * 100 }}" max="100"></progress>
+              <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
             </div>
             <div class="column is-2">
-              {{ probability.prob * 100 | number : '1.2' }}
+              {{ probability.prob[i] * 100 | number : '1.2' }}
             </div>
           </div>
         </div>
