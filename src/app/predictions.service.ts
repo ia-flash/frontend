@@ -20,20 +20,24 @@ export class PredictionsService {
     return this.http.get(`${environment.api}`);
   }
 
-  objectDection(files) {
+  objectDection(files: FileList) {
     const formData: FormData = new FormData();
-    formData.append('image', files[0], files[0].name);
+    Array.from(files).forEach(file => {
+      formData.append('image', file, file.name);
+    });
     return this.http.post(`${environment.api}/object_detection`, formData);
   }
 
-  classPrediction(files) {
+  classPrediction(files: FileList) {
     const formData: FormData = new FormData();
-    formData.append('image', files[0], files[0].name);
+    Array.from(files).forEach(file => {
+      formData.append('image', file, file.name);
+    });
     return this.http.post<PredBox[]>(`${environment.api}/predict`, formData);
   }
 
   callSivnorm(marque, modele) {
-    return this.http.get<SivnormResponse>(`${environment.sivnorm}/norm?marque=${marque}&modele=${modele}`);
+    return this.http.get<SivnormResponse>(`${environment.sivnorm}/norm/siv?marque=${marque}&modele=${modele}`);
   }
 
   callSivnormCsv(files) {

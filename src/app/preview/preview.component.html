@@ -6,7 +6,7 @@
         <div class="level-item">
           <div class="field file has-name">
             <label class="file-label">
-              <input (change)="onFileSelected($event)" class="file-input" type="file" name="image" id="file">
+              <input (change)="onFileSelected($event)" class="file-input" type="file" name="image" id="file" multiple>
               <span class="file-cta">
                 <span class="file-icon">
                   <i class="fas fa-upload"></i>
@@ -31,21 +31,23 @@
         </div>
       </div>
     </nav>
-    <div class="columns is-multiline">
-      <div class="column">
-        <canvas id="canvas"></canvas>
-      </div>
-      <div class="column is-4" *ngIf="probabilities">
-        <div *ngFor="let probability of probabilities; let predNum = index" class="upspace">
-          <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
-            <div class="column is-5">
-              {{ probability.pred[i] }}
-            </div>
-            <div class="column is-5">
-              <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
-            </div>
-            <div class="column is-2">
-              {{ probability.prob[i] * 100 | number : '1.2' }}
+    <div *ngFor="let img_name of currentInput; let img_ind = index" class="container">
+      <div class="columns is-multiline">
+        <div class="column">
+          <canvas id="{{ 'canvas' + img_ind }}"></canvas>
+        </div>
+        <div class="column is-4" *ngIf="probabilities">
+          <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
+            <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
+              <div class="column is-5">
+                {{ probability.pred[i] }}
+              </div>
+              <div class="column is-5">
+                <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
+              </div>
+              <div class="column is-2">
+                {{ probability.prob[i] * 100 | number : '1.2' }}
+              </div>
             </div>
           </div>
         </div>

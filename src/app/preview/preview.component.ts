@@ -8,9 +8,8 @@ import { PredBox } from '../predbox';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit {
-  currentInput: string;
-  imgUrl: any;
-  imgCanvas: any;
+  currentInput: string[];
+  imgCanvas: {};
   probabilities: PredBox[];
   files: FileList;
   loadingDetect: boolean;
@@ -23,14 +22,8 @@ export class PreviewComponent implements OnInit {
   ngOnInit() {
   }
 
-  testFunction() {
-    this.predictionService.testPrediction().subscribe(result => {
-      console.log("Res");
-      console.log(result);
-    });
-  }
-  
   drawBoxes() {
+    console.log(this.imgCanvas);
     this.loadingDetect = !this.loadingDetect;
     this.predictionService.objectDection(this.files).subscribe(result => {
       console.log(result);
@@ -52,71 +45,70 @@ export class PreviewComponent implements OnInit {
   }
 
   onFileSelected(event) {
+    this.imgCanvas = {};
     this.files = event.target.files;
     const files: FileList = event.target.files;
+    console.log(files);
     if(files.length > 0) {
       this.probabilities = null
+      this.currentInput = Array.from(files).map(file => file.name);
 
-      this.currentInput = files[0].name;
-      console.log(files[0]);
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]); 
-      reader.onload = (_event) => { 
-        this.imgUrl = reader.result; 
-        const image = new Image();
-        image.src = this.imgUrl;
-        this.imgCanvas = image
-        image.onload = function() {
-          const canvas = <HTMLCanvasElement> document.getElementById("canvas");
-          const ctx = canvas.getContext("2d");
-          canvas.width  = image.width;
-          canvas.height = image.height;
-          ctx.drawImage(image,0, 0,image.width,image.height);
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file); 
+        reader.onload = (_event) => {
+          const image = new Image();
+          image.src = reader.result as string;
+          this.imgCanvas[index] = image
+          image.onload = function() {
+            const canvas = <HTMLCanvasElement> document.getElementById(`canvas${index}`);
+            const ctx = canvas.getContext("2d");
+            canvas.width  = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image,0, 0,image.width,image.height);
+          }
         }
-      }
+      });
     }
   }
 
-
   renderPredictions = (predictions) => {
-    const canvas = <HTMLCanvasElement> document.getElementById("canvas");
+    predictions.forEach((predictions_image, index) => {
+      const canvas = <HTMLCanvasElement> document.getElementById(`canvas${index}`);
+      const ctx = canvas.getContext("2d");
+      canvas.width  = this.imgCanvas[index].width;
+      canvas.height = this.imgCanvas[index].height;
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+ 
+      // Font options.
+      const font = "16px sans-serif";
+      ctx.font = font;
+      ctx.textBaseline = "top";
+      ctx.drawImage(this.imgCanvas[index], 0, 0,this.imgCanvas[index].width,this.imgCanvas[index].height);
 
-    const ctx = canvas.getContext("2d");
+      predictions_image.forEach((prediction, prediction_index) => {
+        const x = prediction.x1;
+        const y = prediction.y1;
+        const width = prediction.x2 - prediction.x1;
+        const height = prediction.y2 - prediction.y1;
+        // Draw the bounding box.
+        ctx.strokeStyle = this.colorsHX[prediction_index] //"#00FFFF";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x, y, width, height);
+        // Draw the label background.
+        ctx.fillStyle = this.colorsHX[prediction_index] //"#00FFFF";
+        const textWidth = ctx.measureText(prediction.label).width;
+        const textHeight = parseInt(font, 10); // base 10
+        ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+      });
 
-    canvas.width  = this.imgCanvas.width;
-    canvas.height = this.imgCanvas.height;
-
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    // Font options.
-    const font = "16px sans-serif";
-    ctx.font = font;
-    ctx.textBaseline = "top";
-    ctx.drawImage(this.imgCanvas, 0, 0,this.imgCanvas.width,this.imgCanvas.height);
-
-    let index = 0;
-    predictions.forEach(prediction => {
-      const x = prediction.x1;
-      const y = prediction.y1;
-      const width = prediction.x2 - prediction.x1;
-      const height = prediction.y2 - prediction.y1;
-      // Draw the bounding box.
-      ctx.strokeStyle = this.colorsHX[index] //"#00FFFF";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, y, width, height);
-      // Draw the label background.
-      ctx.fillStyle = this.colorsHX[index] //"#00FFFF";
-      const textWidth = ctx.measureText(prediction.label).width;
-      const textHeight = parseInt(font, 10); // base 10
-      ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
-      index+=1;
-    });
-
-    predictions.forEach(prediction => {
-      const x = prediction.x1;
-      const y = prediction.y1;
-      // Draw the text last to ensure it's on top.
-      ctx.fillStyle = "#000000";
-      ctx.fillText(prediction.label, x, y);
+      predictions_image.forEach(prediction => {
+        const x = prediction.x1;
+        const y = prediction.y1;
+        // Draw the text last to ensure it's on top.
+        ctx.fillStyle = "#000000";
+        ctx.fillText(prediction.label, x, y);
+      });
     });
   };
 
