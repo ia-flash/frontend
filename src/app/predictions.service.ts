@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { PredBox } from './predbox'
+import { PredBox } from './predbox';
 
 export interface SivnormResponse {
   marque: string;
@@ -20,19 +20,11 @@ export class PredictionsService {
     return this.http.get(`${environment.api}`);
   }
 
-  objectDection(files: FileList) {
-    const formData: FormData = new FormData();
-    Array.from(files).forEach(file => {
-      formData.append('image', file, file.name);
-    });
+  objectDection(formData: FormData | {}) {
     return this.http.post(`${environment.api}/object_detection`, formData);
   }
 
-  classPrediction(files: FileList) {
-    const formData: FormData = new FormData();
-    Array.from(files).forEach(file => {
-      formData.append('image', file, file.name);
-    });
+  classPrediction(formData: FormData) {
     return this.http.post<PredBox[]>(`${environment.api}/predict`, formData);
   }
 
