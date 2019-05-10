@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+
+$darkblue: #253e7c; 
+$darkblue-invert: #ffffff;
+
+$primary: $darkblue;
+$primary-invert: $darkblue-invert;
+$navbar-burger-color: $white;
+
+@import "bulma";
