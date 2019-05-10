@@ -28,13 +28,13 @@ export class PredictionsService {
     return this.http.post<PredBox[]>(`${environment.api}/predict`, formData);
   }
 
-  callSivnorm(marque, modele) {
-    return this.http.get<SivnormResponse>(`${environment.sivnorm}/norm/siv?marque=${marque}&modele=${modele}`);
+  callSivnorm(marque, modele, tbRefname) {
+    return this.http.get<SivnormResponse>(`${environment.sivnorm}/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
   }
 
-  callSivnormCsv(files) {
+  callSivnormCsv(files, tbRefname) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this.http.post(`${environment.sivnorm}/norm`, formData, {responseType: 'text'});
+    return this.http.post(`${environment.sivnorm}/norm/${tbRefname}`, formData, {responseType: 'text'});
   }
 }
