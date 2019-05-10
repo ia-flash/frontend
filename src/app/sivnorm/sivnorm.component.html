@@ -117,6 +117,27 @@
 
 <section class="section">
   <div class="container">
+
+    <div class="columns">
+
+    <div class="column">
+    <table class="table" *ngIf="inputCsv">
+      <thead>
+        <tr>
+          <th><abbr>Marque</abbr></th>
+          <th><abbr>Modele</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of inputCsv">
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="column">
     <table class="table" *ngIf="resultCsv">
       <thead>
         <tr>
@@ -133,5 +154,9 @@
         </tr>
       </tbody>
     </table>
+   </div>
+
   </div>
+  </div>
+
 </section>

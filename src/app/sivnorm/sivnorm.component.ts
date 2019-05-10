@@ -15,6 +15,7 @@ export class SivnormComponent implements OnInit {
   currentInput: any;
   files: FileList;
   resultCsv: any;
+  inputCsv : any;
   tbRefname: string = "siv";
 
   constructor(private predictionService: PredictionsService) { }
@@ -37,13 +38,26 @@ export class SivnormComponent implements OnInit {
     if(files.length > 0) {
       this.currentInput = files[0].name;
       console.log(files[0]);
+
+      let fileReader = new FileReader();
+
+      fileReader.onload = (e) => {
+        this.inputCsv = fileReader.result;
+        console.log( this.inputCsv.split("\n").map(item => item.split(",")));
+        this.inputCsv =  this.inputCsv.split("\n").map(item => item.split(","));
+        }
+        fileReader.readAsText(this.files[0]);
+
     }
   }
 
   clickCsv() {
     this.predictionService.callSivnormCsv(this.files, this.tbRefname).subscribe(result => {
-      this.resultCsv = result.split("\n").map(item => item.split(","));
-      console.log(result.split("\n").map(item => item.split(",")));
+
+
+
+     this.resultCsv = result.split("\n").map(item => item.split(","));
+     console.log(result.split("\n").map(item => item.split(",")));
     });
   }
 
