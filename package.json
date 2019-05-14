@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "dist": "ng build --aot --output-path ../matchvec/dist --prod",
+    "build": "ng build --aot --output-path ./dist",
+    "dist": "ng build --aot --output-path ./dist --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
