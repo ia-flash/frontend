@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'iaflash';
-  selectedTab: string = 'preview';
+  selectedTab = 'preview';
+  burger = false;
+
+  toggleBurger() {
+    this.burger = !this.burger;
+  }
 }

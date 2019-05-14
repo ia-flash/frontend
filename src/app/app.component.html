@@ -13,13 +13,13 @@
             <a class="navbar-item">
               <img src="/assets/logo-ia-flash.png" alt="Logo">
             </a>
-            <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
               <span></span>
               <span></span>
               <span></span>
             </span>
           </div>
-          <div id="navbarMenuHeroA" class="navbar-menu">
+          <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
             <div class="navbar-end">
               <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Défi IA Flash</a>
               <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Code</a>
