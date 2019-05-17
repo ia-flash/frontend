@@ -13,7 +13,7 @@ export class PreviewComponent implements OnInit {
   objectKeys = Object.keys;
   probabilities: PredBox[];
   files: FileList;
-  person: string = 'https://www.cdn.renault.com/content/dam/Renault/master/vehicules/renault-clio-b98-ph2/design/renault-clio-b98-ph2-design-exterior-001.jpg.ximg.l_full_m.smart.jpg';
+  person: string = '';
   loadingDetect: boolean;
   loadingPredict: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: `http://localhost:5000/api`,
-  sivnorm: `http://localhost:5557`
+  sivnorm: `http://localhost:5000`
 };
 
 /*

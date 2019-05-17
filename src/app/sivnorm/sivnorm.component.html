@@ -3,30 +3,34 @@
 
 <section class="section">
   <div class="container">
-  Faire correpondre avec la réference :
-    <div class="dropdown is-hoverable">
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-         <span>{{tbRefname}}</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-        <div class="dropdown-content">
-          <div class="dropdown-item" (click)="tbRefname='siv'">
-            <p>siv</p>
+    <nav class="level">
+      <div class="level-left">
+        Faire correpondre avec la réference :
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span>{{tbRefname}}</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
           </div>
-          <div class="dropdown-item"  (click)="tbRefname='caradisiac'">
-            <p>caradisiac</p>
-          </div>
-          <div class="dropdown-item" (click)="tbRefname='siv_caradisiac'">
-            <p>caradisac+siv</p>
+          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item" (click)="tbRefname='siv'">
+                <p>siv</p>
+              </div>
+              <div class="dropdown-item"  (click)="tbRefname='caradisiac'">
+                <p>caradisiac</p>
+              </div>
+              <div class="dropdown-item" (click)="tbRefname='siv_caradisiac'">
+                <p>caradisac+siv</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
     <h2 class="title">
       Unitaire
     </h2>
