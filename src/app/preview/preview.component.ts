@@ -13,11 +13,12 @@ export class PreviewComponent implements OnInit {
   objectKeys = Object.keys;
   probabilities: PredBox[];
   files: FileList;
-  person: string = '';
+  person = '';
+  invalidUrl: boolean;
   loadingDetect: boolean;
   loadingPredict: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
-  colorsHX: string[] = ['#253e7c', '#DC5379', '#FFCA00', '#264BEC', "#00BFFF","#17981a"]
+  colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -29,17 +30,22 @@ export class PreviewComponent implements OnInit {
 
   onInputUrlChange() {
     if (this.person) {
-      this.currentInput[0] = this.person;
-      const image = new Image();
-      image.src = this.person;
-      this.imgCanvas[0] = image;
-      image.onload = () => {
-        const canvas = document.getElementById(`canvas${0}`) as HTMLCanvasElement;
-        const ctx = canvas.getContext('2d');
-        canvas.width  = image.width;
-        canvas.height = image.height;
-        ctx.drawImage(image, 0, 0, image.width, image.height);
-      };
+      if (this.person.match(/\.(jpeg|jpg)$/) != null) {
+        this.invalidUrl = false;
+        this.currentInput[0] = this.person;
+        const image = new Image();
+        image.src = this.person;
+        this.imgCanvas[0] = image;
+        image.onload = () => {
+          const canvas = document.getElementById(`canvas${0}`) as HTMLCanvasElement;
+          const ctx = canvas.getContext('2d');
+          canvas.width  = image.width;
+          canvas.height = image.height;
+          ctx.drawImage(image, 0, 0, image.width, image.height);
+        };
+      } else {
+        this.invalidUrl = true;
+      }
     }
   }
 
@@ -158,7 +164,7 @@ export class PreviewComponent implements OnInit {
         const x = prediction.x1;
         const y = prediction.y1;
         // Draw the text last to ensure it's on top.
-        ctx.fillStyle = '#000000';
+        ctx.fillStyle = '#ffffff';
         ctx.fillText(prediction.label, x, y);
       });
     });

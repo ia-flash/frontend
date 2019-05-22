@@ -20,7 +20,12 @@
           </div>
         </div>
         <div class="level-item">
-          <input (change)="onInputUrlChange()" [(ngModel)]="person" class="input" type="text" placeholder="URL de voiture">
+          <input (change)="onInputUrlChange()" [class.is-danger]="invalidUrl" [(ngModel)]="person" class="input" type="text" placeholder="URL de voiture">
+        </div>
+        <div class="level-item" *ngIf="invalidUrl">
+          <p class="help is-danger">
+            l'url doit finir en jpg/jpeg
+          </p>
         </div>
       </div>
 
