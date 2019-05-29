@@ -24,7 +24,7 @@
         </div>
         <div class="level-item" *ngIf="invalidUrl">
           <p class="help is-danger">
-            l'url doit finir en jpg/jpeg
+            {{ invalidUrl }}
           </p>
         </div>
       </div>
@@ -45,7 +45,7 @@
         <div class="column">
           <canvas id="{{ 'canvas' + key }}"></canvas>
         </div>
-        <div class="column is-4" *ngIf="probabilities">
+        <div class="column is-4" *ngIf="probabilities && probabilities.length > 0">
           <div *ngIf="probabilities[img_ind].length === 0" class="notification">
             Pas de prédictions.
           </div>

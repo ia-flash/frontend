@@ -14,7 +14,7 @@ export class PreviewComponent implements OnInit {
   probabilities: PredBox[];
   files: FileList;
   person = '';
-  invalidUrl: boolean;
+  invalidUrl: str;
   loadingDetect: boolean;
   loadingPredict: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
@@ -31,7 +31,7 @@ export class PreviewComponent implements OnInit {
   onInputUrlChange() {
     if (this.person) {
       if (this.person.match(/\.(jpeg|jpg)$/) != null) {
-        this.invalidUrl = false;
+        this.invalidUrl = "";
         this.currentInput[0] = this.person;
         const image = new Image();
         image.src = this.person;
@@ -44,7 +44,7 @@ export class PreviewComponent implements OnInit {
           ctx.drawImage(image, 0, 0, image.width, image.height);
         };
       } else {
-        this.invalidUrl = true;
+        this.invalidUrl = "l'url doit finir en jpg/jpeg";
       }
     }
   }
@@ -102,11 +102,16 @@ export class PreviewComponent implements OnInit {
     this.predictionService.objectDection(formData).subscribe(result => {
       console.log(result);
       this.loadingDetect = false;
-      this.renderPredictions(result);
+      if (result.length > 0) {
+        this.renderPredictions(result);
+      } else {
+        this.invalidUrl = "No image ?";
+      }
     },
       error => {
         this.loadingDetect = false;
         console.log(error);
+        this.invalidUrl = "Error in prediction";
       });
 
   }
@@ -124,8 +129,14 @@ export class PreviewComponent implements OnInit {
       this.probabilities = predictions;
       if (predictions.length > 0) {
         this.renderPredictions(predictions);
+      } else {
+        this.invalidUrl = "No image ?";
       }
-    });
+    }, error => {
+        this.loadingDetect = false;
+        console.log(error);
+        this.invalidUrl = "Error in prediction";
+      });
   }
 
   renderPredictions = (predictions) => {
@@ -144,7 +155,7 @@ export class PreviewComponent implements OnInit {
       ctx.drawImage(this.imgCanvas[this.person ? index : index + 1], 0, 0,
         this.imgCanvas[this.person ? index : index + 1].width, this.imgCanvas[this.person ? index : index + 1].height);
 
-      if (predictionsImage.length === 0) {
+      if (predictionsImage && predictionsImage.length === 0 && this.imgCanvas.length > 0) {
         const textWidth = ctx.measureText("Pas de prediction").width;
         const textHeight = parseInt(font, 10); // base 10
         ctx.fillStyle = "#ffffff";
