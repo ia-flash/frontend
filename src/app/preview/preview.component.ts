@@ -130,7 +130,7 @@ export class PreviewComponent implements OnInit {
 
   renderPredictions = (predictions) => {
     predictions.forEach((predictionsImage, index) => {
-      console.log('Prediction INDEX', index);
+      console.log('Predictions', predictionsImage);
       const canvas = document.getElementById(`canvas${this.person ? index : index + 1}`) as HTMLCanvasElement;
       const ctx = canvas.getContext('2d');
       canvas.width  = this.imgCanvas[this.person ? index : index + 1].width;
@@ -143,6 +143,16 @@ export class PreviewComponent implements OnInit {
       ctx.textBaseline = 'top';
       ctx.drawImage(this.imgCanvas[this.person ? index : index + 1], 0, 0,
         this.imgCanvas[this.person ? index : index + 1].width, this.imgCanvas[this.person ? index : index + 1].height);
+
+      if (predictionsImage.length === 0) {
+        const textWidth = ctx.measureText("Pas de prediction").width;
+        const textHeight = parseInt(font, 10); // base 10
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, textWidth + 4, textHeight + 4);
+        ctx.strokeStyle = this.colorsHX[0]; // "#00FFFF";
+        ctx.fillStyle = this.colorsHX[0]; // "#00FFFF";
+        ctx.fillText("Pas de prediction", 0, 0);
+      }
 
       predictionsImage.forEach((prediction, predictionIndex) => {
         const x = prediction.x1;

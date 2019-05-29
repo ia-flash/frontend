@@ -46,6 +46,9 @@
           <canvas id="{{ 'canvas' + key }}"></canvas>
         </div>
         <div class="column is-4" *ngIf="probabilities">
+          <div *ngIf="probabilities[img_ind].length === 0" class="notification">
+            Pas de prédictions.
+          </div>
           <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
             <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
               <div class="column is-5">
