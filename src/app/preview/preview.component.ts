@@ -133,7 +133,7 @@ export class PreviewComponent implements OnInit {
         this.invalidUrl = "No image ?";
       }
     }, error => {
-        this.loadingDetect = false;
+        this.loadingPredict = false;
         console.log(error);
         this.invalidUrl = "Error in prediction";
       });
