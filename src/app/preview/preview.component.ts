@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
 import { PredBox } from '../predbox';
+declare let h337: any;
+declare let simpleheat: any;
 
 @Component({
   selector: 'app-preview',
@@ -133,7 +135,7 @@ export class PreviewComponent implements OnInit {
         this.invalidUrl = "No image ?";
       }
     }, error => {
-        this.loadingDetect = false;
+        this.loadingPredict = false;
         console.log(error);
         this.invalidUrl = "Error in prediction";
       });
@@ -187,6 +189,85 @@ export class PreviewComponent implements OnInit {
         // Draw the text last to ensure it's on top.
         ctx.fillStyle = '#ffffff';
         ctx.fillText(prediction.label, x, y);
+
+        if (prediction.CAM.length > 0) {
+
+          const defaultGradient = {
+            0.4: 'blue',
+            0.6: 'cyan',
+            0.7: 'lime',
+            0.8: 'yellow',
+            1.0: 'red'
+          }
+
+          const gradient = ctx.createLinearGradient(0, 0, 0, 256);
+
+          for (var i in defaultGradient) {
+            gradient.addColorStop(+i, defaultGradient[i]);
+          }
+
+
+          //console.log("LON", prediction.CAM.length);
+          //console.log("LON", prediction.CAM[0].length);
+          //console.log("LON", prediction.CAM[0][0]);
+          //var data = [];
+          //for (var i = 0; i < 1000; ++i) {
+          prediction.CAM[0].forEach((item, index_item) => {
+            //ctx.globalAlpha = Math.min(Math.max(prediction.CAM[0][i][2] / 10, 0.05), 1);
+            ctx.globalAlpha = Math.min(Math.max((item[2] - 210) / (256 - 210), 0.05), 1);
+            ctx.shadowOffsetX = ctx.shadowOffsetY = 10 * 2;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = 'black';
+
+            ctx.beginPath();
+            //ctx.arc(Math.round(Math.random() * 400), Math.round(Math.random() * 400), 10, 0, Math.PI * 2, true);
+            //ctx.fillStyle = gradient;
+            //ctx.arc(prediction.CAM[0][i][0], prediction.CAM[0][i][1], 10, 0, Math.PI * 2, true);
+            ctx.arc(prediction.x1 + item[1], prediction.y1 + item[0], 10, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fill();
+            //data.push([Math.round(Math.random() * 400), Math.round(Math.random() * 300), Math.random()]);
+          })
+          //          var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          //          //var pixels = imageData.data;
+          //          for (var i = 0, len = imageData.data.length, j; i < len; i += 4) {
+          //            j = imageData.data[i + 3] * 4; // get gradient color from opacity value
+          //
+          //            if (j) {
+          //              imageData.data[i] = gradient[j];
+          //              imageData.data[i + 1] = gradient[j + 1];
+          //              imageData.data[i + 2] = gradient[j + 2];
+          //            }
+          //          }
+          //          ctx.putImageData(imageData, 0, 0);
+          //
+
+        }
+        //var heat = simpleheat(canvas).data(data).max(1);
+        //heat.draw();
+
+        //const bizarre = document.getElementById(`bizarre`) as HTMLCanvasElement;
+        //var heatmap = h337.create({
+        //  container: document.getElementById('heatmapContainer'),
+        //  gradient: { .1: 'rgba(0,0,0,0)', 0.25: "rgba(0,0,90, .6)", .6: "blue", .9: "cyan", .95: 'rgba(255,255,255,.4)'},
+        //  maxOpacity: .6,
+        //  radius: 10,
+        //  blur: .90
+        //});
+
+        //var data = [];
+        //for (var i = 0; i < 1000; ++i) {
+        //  data.push({x: Math.round(Math.random() * 400), y: Math.round(Math.random() * 300), value: Math.random()});
+        //}
+        //heatmap.setData({
+        //  max: 1,
+        //  data: data
+        //});
+        ////heatmap.repaint();
+        //console.log(data);
+        //console.log(heatmap.getValueAt({ x: 10, y: 15 }))
+        ////console.log(heatmap.getDataURL())
+
       });
     });
   }
