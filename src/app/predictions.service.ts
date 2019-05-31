@@ -17,7 +17,7 @@ export class PredictionsService {
   constructor(private http: HttpClient) { }
 
   objectDection(formData: FormData | {}) {
-    return this.http.post(`/api/object_detection`, formData);
+    return this.http.post<PredBox[]>(`/api/object_detection`, formData);
   }
 
   classPrediction(formData: FormData) {

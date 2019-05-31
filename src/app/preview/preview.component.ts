@@ -14,7 +14,7 @@ export class PreviewComponent implements OnInit {
   probabilities: PredBox[];
   files: FileList;
   person = '';
-  invalidUrl: str;
+  invalidUrl = '';
   loadingDetect: boolean;
   loadingPredict: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
