@@ -27,6 +27,7 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.modalActive = false;
+    this.token = 'mytoken';
     this.imgCanvas = {};
     this.currentInput = {};
     this.onInputUrlChange();
