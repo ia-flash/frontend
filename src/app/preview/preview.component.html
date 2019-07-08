@@ -32,13 +32,13 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="toggleModal()" class="button" [class.is-danger]="!valid" [class.is-success]="valid">Authentification</button>
-        </div>
-        <div class="level-item">
           <button (click)="drawBoxes()" class="button is-link"  [class.is-loading]="loadingDetect">Détection d'objets</button>
         </div>
         <div class="level-item">
           <button (click)="drawPrediction()" class="button is-primary" [class.is-loading]="loadingPredict">Classification Marque Modèle</button>
+        </div>
+        <div class="level-item">
+          <button (click)="toggleModal()" class="button"> 🔓</button>
         </div>
       </div>
     </nav>
@@ -47,7 +47,7 @@
       <div class="modal-background" (click)="toggleModal()"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Authentification</p>
+          <p class="modal-card-title">🔒 Authentification</p>
           <button (click)="toggleModal()" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
