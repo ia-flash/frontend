@@ -7,14 +7,12 @@ import { AppComponent } from './app.component';
 import { PreviewComponent } from './preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SivnormComponent } from './sivnorm/sivnorm.component';
-import { AuthentificationComponent } from './authentification/authentification.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PreviewComponent,
     SivnormComponent,
-    AuthentificationComponent
   ],
   imports: [
     BrowserModule,
