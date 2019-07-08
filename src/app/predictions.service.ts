@@ -19,19 +19,24 @@ export class PredictionsService {
   objectDection(formData: FormData | {}, token) {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
+        'X-API-KEY':  token
       })
     };
     return this.http.post<PredBox[]>(`/api/object_detection`, formData, httpOptions);
   }
 
-  classPrediction(formData: FormData) {
-    return this.http.post<PredBox[]>(`/api/predict`, formData);
+  classPrediction(formData: FormData, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-API-KEY':  token
+      })
+    };
+    return this.http.post<PredBox[]>(`/api/predict`, formData, httpOptions);
   }
 
-  login(formData: FormData) {
-    console.log(formData);
-    return this.http.post(`/api/login`, formData);
+  login(token) {
+    console.log({token});
+    return this.http.post(`/api/login`, {token});
   }
 
   callSivnorm(marque, modele, tbRefname) {
