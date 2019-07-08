@@ -37,8 +37,37 @@
         <div class="level-item">
           <button (click)="drawPrediction()" class="button is-primary" [class.is-loading]="loadingPredict">Classification Marque Modèle</button>
         </div>
+        <div class="level-item">
+          <button (click)="toggleModal()" class="button"> 🔓</button>
+        </div>
       </div>
     </nav>
+
+    <div class="modal" [ngClass]="{ 'is-active' : modalActive }">
+      <div class="modal-background" (click)="toggleModal()"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">🔒 Authentification</p>
+          <button (click)="toggleModal()" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input class="input" type="text" placeholder="Token" [value]="token" (input)="token = $event.target.value">
+            </p>
+            <p class="control">
+              <a class="button is-info" (click)="onClickMe()">
+                Envoyer
+              </a>
+            </p>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button" [class.is-success]="valid">Status</button>
+        </footer>
+      </div>
+    </div>
+
     <div *ngIf="currentInput">
     <div *ngFor="let key of objectKeys(currentInput); let img_ind = index" class="container">
       <div class="columns is-multiline">

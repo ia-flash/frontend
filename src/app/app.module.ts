@@ -12,7 +12,7 @@ import { SivnormComponent } from './sivnorm/sivnorm.component';
   declarations: [
     AppComponent,
     PreviewComponent,
-    SivnormComponent
+    SivnormComponent,
   ],
   imports: [
     BrowserModule,

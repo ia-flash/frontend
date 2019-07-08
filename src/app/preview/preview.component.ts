@@ -9,7 +9,7 @@ import { PredBox } from '../predbox';
 })
 export class PreviewComponent implements OnInit {
   currentInput: any;
-  imgCanvas: any; //{};
+  imgCanvas: any;
   objectKeys = Object.keys;
   probabilities: PredBox[];
   files: FileList;
@@ -17,12 +17,17 @@ export class PreviewComponent implements OnInit {
   invalidUrl = '';
   loadingDetect: boolean;
   loadingPredict: boolean;
-  colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
-  colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
+  colors: string[] = ['is-primary', 'is-danger', 'is-warning', 'is-link', 'is-info', 'is-success'];
+  colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', '#00BFFF', '#17981a'];
+  token: string;
+  valid: boolean;
+  modalActive: boolean;
 
   constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
+    this.modalActive = false;
+    this.token = 'mytoken';
     this.imgCanvas = {};
     this.currentInput = {};
     this.onInputUrlChange();
@@ -31,7 +36,7 @@ export class PreviewComponent implements OnInit {
   onInputUrlChange() {
     if (this.person) {
       if (this.person.match(/\.(jpeg|jpg)$/) != null) {
-        this.invalidUrl = "";
+        this.invalidUrl = '';
         this.currentInput[0] = this.person;
         const image = new Image();
         image.src = this.person;
@@ -99,19 +104,19 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
-    this.predictionService.objectDection(formData).subscribe(result => {
+    this.predictionService.objectDection(formData, this.token).subscribe(result => {
       console.log(result);
       this.loadingDetect = false;
       if (result.length > 0) {
         this.renderPredictions(result);
       } else {
-        this.invalidUrl = "No image ?";
+        this.invalidUrl = 'No image ?';
       }
     },
       error => {
         this.loadingDetect = false;
         console.log(error);
-        this.invalidUrl = "Error in prediction";
+        this.invalidUrl = 'Error in prediction';
       });
 
   }
@@ -123,19 +128,19 @@ export class PreviewComponent implements OnInit {
     // Append attachements
     const formData = this.addAttachementsToForm();
 
-    this.predictionService.classPrediction(formData).subscribe(predictions => {
+    this.predictionService.classPrediction(formData, this.token).subscribe(predictions => {
       console.log(predictions);
       this.loadingPredict = false;
       this.probabilities = predictions;
       if (predictions.length > 0) {
         this.renderPredictions(predictions);
       } else {
-        this.invalidUrl = "No image ?";
+        this.invalidUrl = 'No image ?';
       }
     }, error => {
         this.loadingPredict = false;
         console.log(error);
-        this.invalidUrl = "Error in prediction";
+        this.invalidUrl = 'Error in prediction';
       });
   }
 
@@ -156,13 +161,13 @@ export class PreviewComponent implements OnInit {
         this.imgCanvas[this.person ? index : index + 1].width, this.imgCanvas[this.person ? index : index + 1].height);
 
       if (predictionsImage && predictionsImage.length === 0 && this.imgCanvas.length > 0) {
-        const textWidth = ctx.measureText("Pas de prediction").width;
+        const textWidth = ctx.measureText('Pas de prediction').width;
         const textHeight = parseInt(font, 10); // base 10
-        ctx.fillStyle = "#ffffff";
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, textWidth + 4, textHeight + 4);
         ctx.strokeStyle = this.colorsHX[0]; // "#00FFFF";
         ctx.fillStyle = this.colorsHX[0]; // "#00FFFF";
-        ctx.fillText("Pas de prediction", 0, 0);
+        ctx.fillText('Pas de prediction', 0, 0);
       }
 
       predictionsImage.forEach((prediction, predictionIndex) => {
@@ -189,6 +194,22 @@ export class PreviewComponent implements OnInit {
         ctx.fillText(prediction.label, x, y);
       });
     });
+  }
+
+  onClickMe() {
+    this.predictionService.login(this.token).subscribe(result => {
+      this.valid = true;
+      console.log(result);
+    },
+      error => {
+        this.valid = false;
+        console.log(error);
+      }
+    );
+  }
+
+  toggleModal() {
+    this.modalActive = !this.modalActive;
   }
 
 }

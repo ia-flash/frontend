@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { PredBox } from './predbox';
 
@@ -16,12 +16,27 @@ export class PredictionsService {
 
   constructor(private http: HttpClient) { }
 
-  objectDection(formData: FormData | {}) {
-    return this.http.post<PredBox[]>(`/api/object_detection`, formData);
+  objectDection(formData: FormData | {}, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-API-KEY':  token
+      })
+    };
+    return this.http.post<PredBox[]>(`/api/object_detection`, formData, httpOptions);
   }
 
-  classPrediction(formData: FormData) {
-    return this.http.post<PredBox[]>(`/api/predict`, formData);
+  classPrediction(formData: FormData, token) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-API-KEY':  token
+      })
+    };
+    return this.http.post<PredBox[]>(`/api/predict`, formData, httpOptions);
+  }
+
+  login(token) {
+    console.log({token});
+    return this.http.post(`/api/login`, {token});
   }
 
   callSivnorm(marque, modele, tbRefname) {
