@@ -19,10 +19,12 @@ export class PreviewComponent implements OnInit {
   loadingPredict: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
+  selectedTab: string;
 
   constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
+    this.selectedTab = 'preview';
     this.imgCanvas = {};
     this.currentInput = {};
     this.onInputUrlChange();

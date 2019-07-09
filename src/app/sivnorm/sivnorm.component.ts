@@ -17,10 +17,12 @@ export class SivnormComponent implements OnInit {
   resultCsv: any;
   inputCsv : any;
   tbRefname: string = "siv";
+  selectedTab: string;
 
   constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
+    this.selectedTab = 'sivnorm';
   }
 
   onClickMe() {

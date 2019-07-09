@@ -17,15 +17,15 @@ export class PredictionsService {
   constructor(private http: HttpClient) { }
 
   objectDection(formData: FormData | {}) {
-    return this.http.post<PredBox[]>(`/api/object_detection`, formData);
+    return this.http.post<PredBox[]>(`/matchvec/object_detection`, formData);
   }
 
   classPrediction(formData: FormData) {
-    return this.http.post<PredBox[]>(`/api/predict`, formData);
+    return this.http.post<PredBox[]>(`/matchvec/predict`, formData);
   }
 
   callSivnorm(marque, modele, tbRefname) {
-    return this.http.get<SivnormResponse>(`/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
+    return this.http.get<SivnormResponse>(`/sivnorm/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
   }
 
   callSivnormCsv(files, tbRefname) {
