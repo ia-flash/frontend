@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { PreviewComponent } from './preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SivnormComponent } from './sivnorm/sivnorm.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PreviewComponent,
-    SivnormComponent
+    SivnormComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
