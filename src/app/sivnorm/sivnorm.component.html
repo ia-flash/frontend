@@ -31,9 +31,25 @@
       <h1 class="title">SivNorm</h1>
       <h2 class="subtitle">Match flou de la marque et modèle des véhicules dans la carte grise à partir d'un référentiel</h2>
 
-      <a class="button is-rounded" href="https://github.com/ia-flash/sivnorm">Code</a>  &nbsp;
-      <a class="button is-rounded is-info" href="/sivnorm/swagger">Swagger</a> &nbsp;
-      <a class="button is-rounded is-link" href="/sivnorm/docs">Documentation technique</a>  &nbsp;
+      <nav class="level">
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded" href="https://github.com/ia-flash/sivnorm">Code</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-info" href="/sivnorm/swagger">Swagger</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-link" href="/sivnorm/docs">Documentation technique</a>
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+      </nav>
     </div>
   </div>
   <div class="hero-foot">
@@ -55,38 +71,46 @@
     Nous utilisons un référentiel pour rapprocher le champs marque et modèle. Vous pouvez choisir le référentiel souhaité en utilisant le bouton suivant.
     <br>
     <br>
-    <div class="field is-grouped">
-      <p class="control">
-        <a class="button"  style="border:none;">
-          Faire correspondre avec la référence :
-        </a>
-      </p>
-        <div class="dropdown is-hoverable control">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-              <span>{{tbRefname}}</span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-              <a class="dropdown-item is-active" [ngClass]="{'is-active': tbRefname === 'siv'}" (click)="tbRefname='siv'">
-                <p>siv</p>
-              </a>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'caradisiac'}" (click)="tbRefname='caradisiac'">
-                <p>caradisiac</p>
-              </a>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'siv_caradisiac'}" (click)="tbRefname='siv_caradisiac'">
-                <p>caradisac+siv</p>
-              </a>
+
+
+
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <a class="button"  style="border:none;">
+            Faire correspondre avec la référence :
+          </a>
+        </div>
+        <div class="level-item">
+          <div class="dropdown is-hoverable control">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>{{tbRefname}}</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item is-active" [ngClass]="{'is-active': tbRefname === 'siv'}" (click)="tbRefname='siv'">
+                  <p>siv</p>
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'caradisiac'}" (click)="tbRefname='caradisiac'">
+                  <p>caradisiac</p>
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'siv_caradisiac'}" (click)="tbRefname='siv_caradisiac'">
+                  <p>caradisac+siv</p>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-    </div>
+      </div>
+    </nav>
 
     <h2 class="title">
       Match unitaire
