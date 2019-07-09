@@ -31,6 +31,6 @@ export class PredictionsService {
   callSivnormCsv(files, tbRefname) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this.http.post(`/norm/${tbRefname}`, formData, {responseType: 'text'});
+    return this.http.post(`/sivnorm/norm/${tbRefname}`, formData, {responseType: 'text'});
   }
 }
