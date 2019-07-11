@@ -1,38 +1,119 @@
+<section class="hero is-primary">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" routerLink="">
+            <img src="/assets/logo-ia-flash.png" alt="Logo">
+          </a>
+          <a class="navbar-item">
+            Test API
+          </a>
+          <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
+          <div class="navbar-end">
+            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Défi IA Flash</a>
+            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Github</a>
 
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">SivNorm</h1>
+      <h2 class="subtitle">Match flou de la marque et modèle des véhicules dans la carte grise à partir d'un référentiel</h2>
+
+      <nav class="level">
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded" href="https://github.com/ia-flash/sivnorm">Code</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-info" href="/sivnorm/swagger">Swagger</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-link" href="/sivnorm/docs">Documentation technique</a>
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed">
+      <div class="container">
+        <ul>
+          <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a routerLink="/testapi/matchvec">IA Flash</a></li>
+          <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a >SivNorm</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
 
 
 <section class="section">
   <div class="container">
+    <h3 class="title">Référentiel</h3>
+    Nous utilisons un référentiel pour rapprocher le champs marque et modèle. Vous pouvez choisir le référentiel souhaité en utilisant le bouton suivant.
+    <br>
+    <br>
+
+
+
     <nav class="level">
+      <!-- Left side -->
       <div class="level-left">
-        Faire correpondre avec la réference :
-        <div class="dropdown is-hoverable">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-              <span>{{tbRefname}}</span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item" (click)="tbRefname='siv'">
-                <p>siv</p>
-              </div>
-              <div class="dropdown-item"  (click)="tbRefname='caradisiac'">
-                <p>caradisiac</p>
-              </div>
-              <div class="dropdown-item" (click)="tbRefname='siv_caradisiac'">
-                <p>caradisac+siv</p>
+        <div class="level-item">
+          <a class="button"  style="border:none;">
+            Faire correspondre avec la référence :
+          </a>
+        </div>
+        <div class="level-item">
+          <div class="dropdown is-hoverable control">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>{{tbRefname}}</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item is-active" [ngClass]="{'is-active': tbRefname === 'siv'}" (click)="tbRefname='siv'">
+                  <p>siv</p>
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'caradisiac'}" (click)="tbRefname='caradisiac'">
+                  <p>caradisiac</p>
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'siv_caradisiac'}" (click)="tbRefname='siv_caradisiac'">
+                  <p>caradisac+siv</p>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </nav>
+
     <h2 class="title">
-      Unitaire
+      Match unitaire
     </h2>
     <nav class="level">
       <div class="level-item">
@@ -87,7 +168,7 @@
 <section class="section">
   <div class="container">
     <h2 class="title">
-      Par lot
+      Match par lot
     </h2>
     <nav class="level">
       <!-- Left side -->
@@ -164,3 +245,19 @@
   </div>
 
 </section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content">
+
+      <div class="has-text-centered">
+        <p>
+          2019 - IA Flash
+        </p>
+      </div>
+      <p>
+      </p>
+    </div>
+  </div>
+</footer>

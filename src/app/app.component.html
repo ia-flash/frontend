@@ -4,48 +4,5 @@
   <meta charset="utf-8"/>
 </head>
 <body>
-  <section class="hero is-primary">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item">
-              <img src="/assets/logo-ia-flash.png" alt="Logo">
-            </a>
-            <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </div>
-          <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
-            <div class="navbar-end">
-              <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Défi IA Flash</a>
-              <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Code</a>
-              <a class="navbar-item" href="/docs" target="_blank">Documentation</a>
-              <a class="navbar-item" href="/api/doc" target="_blank">Swagger</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">IA Flash</h1>
-        <h2 class="subtitle">Prediction de la marque et modèle d'un vehicule</h2>
-      </div>
-    </div>
-    <div class="hero-foot">
-      <nav class="tabs is-boxed">
-        <div class="container">
-          <ul>
-            <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a routerLink="preview">IA Flash</a></li>
-            <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a routerLink="sivnorm">SivNorm</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </section>
   <router-outlet></router-outlet>
 </body>
