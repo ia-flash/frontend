@@ -8,6 +8,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SivnormComponent } from './sivnorm/sivnorm.component';
 import { HomeComponent } from './home/home.component';
+import { VideoComponent } from './video/video.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HomeComponent } from './home/home.component';
     PreviewComponent,
     SivnormComponent,
     HomeComponent,
+    VideoComponent,
   ],
   imports: [
     BrowserModule,

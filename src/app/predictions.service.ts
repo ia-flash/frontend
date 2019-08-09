@@ -20,6 +20,14 @@ export class PredictionsService {
     return this.http.post<PredBox[]>(`/matchvec/object_detection`, formData);
   }
 
+  videoDetection(formData: FormData | {}) {
+    return this.http.post<any>(`/matchvec/video_detection`, formData);
+  }
+
+  statusVideoDetection(taskId) {
+    return this.http.get<any>(`/matchvec/status/${taskId}`);
+  }
+
   classPrediction(formData: FormData) {
     return this.http.post<PredBox[]>(`/matchvec/predict`, formData);
   }
