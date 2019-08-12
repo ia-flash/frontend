@@ -77,7 +77,7 @@ export class VideoComponent implements OnInit {
     if (files.length > 0) {
       this.probabilities = null;
       Array.from(files).forEach((file, index) => {
-        this.currentInput = file.name; // .push(file.name);
+        this.currentInput = file; // .push(file.name);
       });
 
     }

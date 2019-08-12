@@ -13,8 +13,13 @@
               Choisir un fichier
             </span>
           </span>
-          <span class="file-name" id="filename">{{ currentInput }}</span>
         </label>
+        <div class="field-body" *ngIf="currentInput">
+          <div class="field has-addons">
+            <span class="file-name control" id="filename">{{ currentInput.name }}</span>
+            <span class="file-name control" id="filesize">{{ (currentInput.size / 1048576).toFixed(1) + 'Mo' }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
