@@ -21,6 +21,13 @@ export class VideoComponent implements OnInit {
 
   ngOnInit() {
     this.percent = -1;
+    this.rotation90 = 0;
+    this.sliderValue = {
+      x1: 0,
+      x2: 100,
+      y1: 0,
+      y2: 100
+    };
   }
 
   videoIndex() {
@@ -29,6 +36,11 @@ export class VideoComponent implements OnInit {
       Array.from(this.files).forEach(file => {
         formData.append('video', file, file.name);
       });
+    }
+    formData.append('rotation', this.rotation90.toString());
+
+    for (const [key, value] of Object.entries(this.sliderValue)) {
+      formData.append(`crop_coord_${key}`, value.toString());
     }
 
     this.loadingClassification = true;
