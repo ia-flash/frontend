@@ -13,7 +13,9 @@ export class VideoComponent implements OnInit {
   imgCanvas: any; // {};
   percent: number;
   loadingClassification: boolean;
-  partialResult: any;
+  result: any;
+  rotation90: number;
+  sliderValue: any;
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -44,7 +46,7 @@ export class VideoComponent implements OnInit {
   updateProgress(taskId) {
     this.predictionService.statusVideoDetection(taskId).subscribe(result => {
       console.log(result);
-      this.partialResult = result;
+      this.result = result;
       this.percent = parseInt(result.current, 10) * 100 / parseInt(result.total, 10);
       console.log(this.percent);
 
