@@ -1,96 +1,193 @@
-<nav class="level">
-  <!-- Left side -->
-  <div class="level-left">
-    <div class="level-item">
-      <div class="field file has-name">
-        <label class="file-label">
-          <input (change)="onFileSelected($event.target.files)" class="file-input" type="file" name="video" id="video" accept=".mp4">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label">
-              Choisir un fichier
-            </span>
+<section class="hero is-primary">
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" routerLink="">
+            <img src="/assets/logo-ia-flash.png" alt="Logo">
+          </a>
+          <a class="navbar-item">
+            Test API
+          </a>
+          <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
           </span>
-        </label>
-        <div class="field-body" *ngIf="currentInput">
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
+          <div class="navbar-end">
+            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Défi IA Flash</a>
+            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Github</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">Vidéo IA Flash</h1>
+      <h2 class="subtitle">Détection des marque et modèle du véhicule dans des vidéos</h2>
+
+      <nav class="level">
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded" href="https://github.com/ia-flash/matchvec">Code</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-info" href="/matchvec/swagger">Swagger</a>
+        </div>
+        <div class="level-item">
+          <a class="button is-rounded is-link" href="/matchvec/docs">Documentation technique</a>
+        </div>
+        <div class="level-item">
+        </div>
+        <div class="level-item">
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed">
+      <div class="container">
+        <ul>
+          <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a routerLink="/testapi/matchvec">IA Flash</a></li>
+          <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a routerLink="/testapi/sivnorm">SivNorm</a></li>
+          <li [ngClass]="{'is-active': selectedTab === 'video'}" (click)="selectedTab = 'video'"><a>Video</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h3 class="title">Instructions  </h3>
+    <div class="content">
+      <ol type="1">
+        <li>Sélectionner une video: </li>
+        <ol type="2">
+          <li>Utiliser le bouton "Nombre rotation" pour choisir le nombre de rotation de 90° à faire sur la vidéo.</li>
+        </ol>
+        <li>Sélectionner le bouton "Classification vidéo" pour détecter des véhicules dans la vidéo</li>
+      </ol>
+    </div>
+
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <div class="field file has-name">
+            <label class="file-label">
+              <input (change)="onFileSelected($event.target.files)" class="file-input" type="file" name="video" id="video" accept=".mp4">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choisir un fichier
+                </span>
+              </span>
+            </label>
+            <div class="field-body" *ngIf="currentInput">
+              <div class="field has-addons">
+                <span class="file-name control" id="filename">{{ currentInput.name }}</span>
+                <span class="file-name control" id="filesize">{{ (currentInput.size / 1048576).toFixed(1) + 'Mo' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="level-right">
+        <div class="level-item">
           <div class="field has-addons">
-            <span class="file-name control" id="filename">{{ currentInput.name }}</span>
-            <span class="file-name control" id="filesize">{{ (currentInput.size / 1048576).toFixed(1) + 'Mo' }}</span>
+            <div class="control">
+              <button class="button is-primary">Nombre rotation 90°</button>
+            </div>
+            <div class="control">
+              <div class="select">
+                <select class="form-control" [(ngModel)]="rotation90">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- Right side -->
-  <div class="level-right">
-    <div class="level-item">
-      <div class="field has-addons">
-        <div class="control">
-          <button class="button is-primary">Rotation number</button>
+        <div class="level-item">
+          <button (click)="videoIndex()" class="button is-primary" [class.is-loading]="classificationStatus.loading">Classification video</button>
         </div>
-        <div class="control">
-          <div class="select">
-            <select class="form-control" [(ngModel)]="rotation90">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
-          </div>
+        <div *ngIf="classificationStatus.loading" class="level-item">
+          <button (click)="killTask()" class="button is-danger">Stop</button>
         </div>
       </div>
-    </div>
-    <div class="level-item">
-      <button (click)="videoIndex()" class="button is-primary" [class.is-loading]="classificationStatus.loading">Classification video</button>
-    </div>
-    <div *ngIf="classificationStatus.loading" class="level-item">
-      <button (click)="killTask()" class="button is-danger">Stop</button>
-    </div>
-  </div>
-</nav>
+    </nav>
 
-<!--
-<input [(ngModel)]="sliderValue.x1" class="slider " step="1" min="0" max="100" type="range">
-<input [(ngModel)]="sliderValue.x2" class="slider is-success" step="1" min="0" max="100" type="range">
-<input [(ngModel)]="sliderValue.y1" class="slider is-warning" step="1" min="0" max="100" type="range">
-<input [(ngModel)]="sliderValue.y2" class="slider is-info" step="1" min="0" max="100" type="range">
--->
+    <!--
+      <input [(ngModel)]="sliderValue.x1" class="slider " step="1" min="0" max="100" type="range">
+      <input [(ngModel)]="sliderValue.x2" class="slider is-success" step="1" min="0" max="100" type="range">
+      <input [(ngModel)]="sliderValue.y1" class="slider is-warning" step="1" min="0" max="100" type="range">
+      <input [(ngModel)]="sliderValue.y2" class="slider is-info" step="1" min="0" max="100" type="range">
+    -->
 
 
-<div *ngIf="percent > -1">
-  <div class="columns">
-    <div class="column">
-      {{ result.state }}
-    </div>
-    <div class="column is-10">
-      <progress class="progress" value="{{ percent }}" max="100">{{ percent }}%</progress>
-    </div>
-    <div class="column is-1">
-      {{ percent | number: '1.0-1' }} %
-    </div>
-  </div>
-  <div *ngIf="result.result">
-    <article class="message">
-      <div class="message-header">
-        <p>Résultat</p>
-      </div>
-      <div class="message-body">
-        {{ result.result }}
-      </div>
-    </article>
-  </div>
-  <div *ngIf="(result.partial_result) && (result.partial_result.length > 0)">
-    <div *ngFor="let partialRes of result.partial_result" class="container">
-      <div class="columns is-multiline">
+    <div *ngIf="percent > -1">
+      <div class="columns">
         <div class="column">
-          <img [src]="partialRes.img | imageDecode">
+          {{ result.state }}
         </div>
-        <div class="column is-4">
-          {{ partialRes.model }} à la seconde {{ partialRes.seconds | number: '1.0-1' }}
+        <div class="column is-10">
+          <progress class="progress" value="{{ percent }}" max="100">{{ percent }}%</progress>
+        </div>
+        <div class="column is-1">
+          {{ percent | number: '1.0-1' }} %
+        </div>
+      </div>
+      <div *ngIf="result.result">
+        <article class="message">
+          <div class="message-header">
+            <p>Résultat</p>
+          </div>
+          <div class="message-body">
+            {{ result.result }}
+          </div>
+        </article>
+      </div>
+      <div *ngIf="(result.partial_result) && (result.partial_result.length > 0)">
+        <div *ngFor="let partialRes of result.partial_result" class="container">
+          <div class="columns is-multiline">
+            <div class="column">
+              <img [src]="partialRes.img | imageDecode">
+            </div>
+            <div class="column is-4">
+              {{ partialRes.model }} à la seconde {{ partialRes.seconds | number: '1.0-1' }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content">
+
+      <div class="has-text-centered">
+        <p>
+          2019 - IA Flash
+        </p>
+      </div>
+      <p>
+      </p>
+    </div>
+  </div>
+</footer>

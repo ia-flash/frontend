@@ -17,6 +17,8 @@ export class VideoComponent implements OnInit {
   result: any;
   rotation90: number;
   sliderValue: any;
+  selectedTab: string;
+  burger = false;
 
   constructor(private predictionService: PredictionsService) { }
 
@@ -33,6 +35,11 @@ export class VideoComponent implements OnInit {
       y1: 0,
       y2: 100
     };
+    this.selectedTab = 'video';
+  }
+
+  toggleBurger() {
+    this.burger = !this.burger;
   }
 
   videoIndex() {

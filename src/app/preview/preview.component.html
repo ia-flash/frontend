@@ -57,6 +57,7 @@
         <ul>
           <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a>IA Flash</a></li>
           <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a routerLink="/testapi/sivnorm">SivNorm</a></li>
+          <li [ngClass]="{'is-active': selectedTab === 'video'}" (click)="selectedTab = 'video'"><a routerLink="/testapi/video">Video</a></li>
         </ul>
       </div>
     </nav>
@@ -140,14 +141,10 @@
           <li>Utiliser le bouton "Choisir un fichier" pour prendre des images sur l'ordinateur</li>
           <li>Utiliser la case "Url de voiture" pour écrire l'URL d'une image sur internet</li>
         </ol>
-        <li>Sélectionner le bouton "Détection d'objets" pour obtenir détecter le type d'objet sur l'image</li>
+        <li>Sélectionner le bouton "Détection d'objets" pour détecter le type d'objet sur l'image</li>
         <li>Sélectionner le bouton "Classification Marque Modèle" pour détecter la marque et modèle des véhicules dans l'image</li>
       </ol>
     </div>
-
-
-    <app-video></app-video>
-
   </div>
 </section>
 
