@@ -13,7 +13,7 @@ export class VideoComponent implements OnInit {
   currentInput: any;
   imgCanvas: any; // {};
   percent: number;
-  loadingClassification: boolean;
+  classificationStatus: any;
   result: any;
   rotation90: number;
   sliderValue: any;
@@ -23,6 +23,10 @@ export class VideoComponent implements OnInit {
   ngOnInit() {
     this.percent = -1;
     this.rotation90 = 0;
+    this.classificationStatus = {
+      loading: false,
+      taskId: null
+    };
     this.sliderValue = {
       x1: 0,
       x2: 100,
@@ -44,16 +48,28 @@ export class VideoComponent implements OnInit {
       formData.append(`crop_coord_${key}`, value.toString());
     }
 
-    this.loadingClassification = true;
+    this.classificationStatus.loading = true;
     console.log('here');
     this.predictionService.videoDetection(formData).subscribe(result => {
       console.log(result);
+      this.classificationStatus.taskId = result.task_id;
       this.updateProgress(result.task_id);
     },
       error => {
-        this.loadingClassification = false;
+        this.classificationStatus.loading = false;
         console.log(error);
       });
+  }
+
+  killTask() {
+    this.predictionService.killTaskVideo(this.classificationStatus.taskId).subscribe(result => {
+      console.log(result);
+      this.classificationStatus = {
+        loading: false,
+        taskId: null
+      };
+      this.percent = -1;
+    });
   }
 
   updateProgress(taskId) {
@@ -63,14 +79,14 @@ export class VideoComponent implements OnInit {
       this.percent = parseInt(result.current, 10) * 100 / parseInt(result.total, 10);
       console.log(this.percent);
 
-      if (result['state'] != 'PENDING' && result['state'] != 'PROGRESS') {
+      if (result.state !== 'PENDING' && result.state !== 'PROGRESS') {
         if ('result' in result) {
-          this.loadingClassification = false;
+          this.classificationStatus.loading = false;
           // show result
-          console.log('Result: ' + result['result']);
+          console.log('Result: ' + result.result);
         } else {
           // something unexpected happened
-          console.log('Result: ' + result['state']);
+          console.log('Result: ' + result.state);
         }
       } else {
         // rerun in 2 seconds

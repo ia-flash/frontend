@@ -43,15 +43,20 @@
       </div>
     </div>
     <div class="level-item">
-      <button (click)="videoIndex()" class="button is-primary" [class.is-loading]="loadingClassification">Classification video</button>
+      <button (click)="videoIndex()" class="button is-primary" [class.is-loading]="classificationStatus.loading">Classification video</button>
+    </div>
+    <div *ngIf="classificationStatus.loading" class="level-item">
+      <button (click)="killTask()" class="button is-danger">Stop</button>
     </div>
   </div>
 </nav>
 
+<!--
 <input [(ngModel)]="sliderValue.x1" class="slider " step="1" min="0" max="100" type="range">
 <input [(ngModel)]="sliderValue.x2" class="slider is-success" step="1" min="0" max="100" type="range">
 <input [(ngModel)]="sliderValue.y1" class="slider is-warning" step="1" min="0" max="100" type="range">
 <input [(ngModel)]="sliderValue.y2" class="slider is-info" step="1" min="0" max="100" type="range">
+-->
 
 
 <div *ngIf="percent > -1">
@@ -66,6 +71,16 @@
       {{ percent | number: '1.0-1' }} %
     </div>
   </div>
+  <div *ngIf="result.result">
+    <article class="message">
+      <div class="message-header">
+        <p>Résultat</p>
+      </div>
+      <div class="message-body">
+        {{ result.result }}
+      </div>
+    </article>
+  </div>
   <div *ngIf="(result.partial_result) && (result.partial_result.length > 0)">
     <div *ngFor="let partialRes of result.partial_result" class="container">
       <div class="columns is-multiline">
@@ -79,5 +94,3 @@
     </div>
   </div>
 </div>
-
-
