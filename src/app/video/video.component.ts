@@ -17,12 +17,10 @@ export class VideoComponent implements OnInit {
   result: any;
   rotation90: number;
   sliderValue: any;
-  imagePath: any;
 
-  constructor(private predictionService: PredictionsService, private _sanitizer: DomSanitizer) { }
+  constructor(private predictionService: PredictionsService) { }
 
   ngOnInit() {
-    this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,');
     this.percent = -1;
     this.rotation90 = 0;
     this.sliderValue = {
@@ -63,10 +61,6 @@ export class VideoComponent implements OnInit {
       console.log(result);
       this.result = result;
       this.percent = parseInt(result.current, 10) * 100 / parseInt(result.total, 10);
-      if ((result.partial_result) && (result.partial_result.length > 0)) {
-        console.log('HERE');
-        this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + result.partial_result[0].img);
-      }
       console.log(this.percent);
 
       if (result['state'] != 'PENDING' && result['state'] != 'PROGRESS') {

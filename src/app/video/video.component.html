@@ -55,19 +55,29 @@
 
 
 <div *ngIf="percent > -1">
-  <progress class="progress" value="{{ percent }}" max="100">{{ percent }}%</progress>
-  <p>
-    {{ result.state }}
-  </p>
+  <div class="columns">
+    <div class="column">
+      {{ result.state }}
+    </div>
+    <div class="column is-10">
+      <progress class="progress" value="{{ percent }}" max="100">{{ percent }}%</progress>
+    </div>
+    <div class="column is-1">
+      {{ percent | number: '1.0-1' }} %
+    </div>
+  </div>
   <div *ngIf="(result.partial_result) && (result.partial_result.length > 0)">
     <div *ngFor="let partialRes of result.partial_result" class="container">
-      <p>
-        {{ partialRes.frame }}
-        {{ partialRes.model }}
-      </p>
+      <div class="columns is-multiline">
+        <div class="column">
+          <img [src]="partialRes.img | imageDecode">
+        </div>
+        <div class="column is-4">
+          {{ partialRes.model }} à la seconde {{ partialRes.seconds | number: '1.0-1' }}
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 
-<img [src]="imagePath">
