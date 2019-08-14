@@ -101,10 +101,11 @@ export class VideoComponent implements OnInit {
           this.updateProgress(taskId);
         }, 2000);
       }
-
-
-
-    });
+    },
+      error => {
+        this.classificationStatus.loading = false;
+        console.log(error);
+      });
   }
 
   onFileSelected(selectedFiles) {
