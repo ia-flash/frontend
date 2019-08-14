@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PreviewComponent } from './preview/preview.component';
 import { SivnormComponent } from './sivnorm/sivnorm.component';
+import { VideoComponent } from './video/video.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -9,6 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'testapi/matchvec', component: PreviewComponent },
   { path: 'testapi/sivnorm', component: SivnormComponent },
+  { path: 'testapi/video', component: VideoComponent },
   { path: '**', component: PreviewComponent }
 ];
 
