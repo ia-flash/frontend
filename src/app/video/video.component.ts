@@ -18,9 +18,10 @@ export class VideoComponent implements OnInit {
   rotation90: number;
   sliderValue: any;
   selectedTab: string;
+  uploadedVideo: any;
   burger = false;
 
-  constructor(private predictionService: PredictionsService) { }
+  constructor(private predictionService: PredictionsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.percent = -1;
@@ -117,9 +118,27 @@ export class VideoComponent implements OnInit {
       this.probabilities = null;
       Array.from(files).forEach((file, index) => {
         this.currentInput = file; // .push(file.name);
+        this.uploadedVideo = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
       });
 
     }
+  }
+
+  getRotation() {
+    if (this.rotation90 == 0) {
+      return 'rotate(0deg)'
+    } else if (this.rotation90 == 1) {
+      return 'rotate(90deg)'
+    } else if (this.rotation90 == 2) {
+      return 'rotate(180deg)'
+    } else if (this.rotation90 == 3) {
+      return 'rotate(270deg)'
+    }
+  }
+
+  onRotationSelected (selectedRotation) {
+    this.rotation90 = selectedRotation;
+    console.log(selectedRotation);
   }
 
 }

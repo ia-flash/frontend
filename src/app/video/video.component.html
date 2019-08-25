@@ -92,7 +92,7 @@
             </div>
             <div class="control">
               <div class="select">
-                <select class="form-control" [(ngModel)]="rotation90">
+                <select (change)="onRotationSelected($event.target.value)" class="form-control" [(ngModel)]="rotation90">
                   <option>0</option>
                   <option>1</option>
                   <option>2</option>
@@ -110,6 +110,15 @@
         </div>
       </div>
     </nav>
+
+
+    <div *ngIf="uploadedVideo">
+      <video id="video-element"  [style.transform]="getRotation()" controls>
+        <source [src]="uploadedVideo" type="video/mp4">
+      </video>
+    </div>
+
+
 
     <!--
       <input [(ngModel)]="sliderValue.x1" class="slider " step="1" min="0" max="100" type="range">
