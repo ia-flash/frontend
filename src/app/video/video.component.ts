@@ -31,10 +31,9 @@ export class VideoComponent implements OnInit {
       taskId: null
     };
     this.sliderValue = {
-      x1: 0,
-      x2: 100,
-      y1: 0,
-      y2: 100
+      probDetection: 50,
+      probClassification: 85,
+      fps: 3
     };
     this.selectedTab = 'video';
   }
@@ -51,13 +50,11 @@ export class VideoComponent implements OnInit {
       });
     }
     formData.append('rotation', this.rotation90.toString());
-
-    for (const [key, value] of Object.entries(this.sliderValue)) {
-      formData.append(`crop_coord_${key}`, value.toString());
-    }
+    formData.append('probClassification', this.sliderValue.probClassification.toString());
+    formData.append('probDetection', this.sliderValue.probDetection.toString());
+    formData.append('fps', this.sliderValue.fps.toString());
 
     this.classificationStatus.loading = true;
-    console.log('here');
     this.predictionService.videoDetection(formData).subscribe(result => {
       console.log(result);
       this.classificationStatus.taskId = result.task_id;
@@ -127,11 +124,11 @@ export class VideoComponent implements OnInit {
   getRotation() {
     if (this.rotation90 == 0) {
       return 'rotate(0deg)'
-    } else if (this.rotation90 == 1) {
+    } else if (this.rotation90 == 90) {
       return 'rotate(90deg)'
-    } else if (this.rotation90 == 2) {
+    } else if (this.rotation90 == 180) {
       return 'rotate(180deg)'
-    } else if (this.rotation90 == 3) {
+    } else if (this.rotation90 == 270) {
       return 'rotate(270deg)'
     }
   }
@@ -139,6 +136,11 @@ export class VideoComponent implements OnInit {
   onRotationSelected (selectedRotation) {
     this.rotation90 = selectedRotation;
     console.log(selectedRotation);
+  }
+
+  onFpsSelected (selectedFps) {
+    this.sliderValue.fps = selectedFps;
+    console.log(selectedFps);
   }
 
 }
