@@ -99,7 +99,7 @@
       <div class="level-item">
         <div class="field has-addons">
           <div class="control">
-            <button class="button is-primary">Images par seconde</button>
+            <button class="button is-info">Images par seconde</button>
           </div>
           <div class="control">
             <div class="select">
@@ -117,31 +117,29 @@
       <div class="level-item">
         <div class="field has-addons">
           <div class="control">
-            <button class="button is-primary">Probabilité Détection {{ sliderValue.probDetection }}%</button>
+            <button class="button is-info">Probabilité Détection {{ sliderValue.probDetection }}%</button>
           </div>
           <div class="control">
-            <button class="button">
-              <input [(ngModel)]="sliderValue.probDetection" class="slider" step="1" min="0" max="100" type="range">
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="level-item">
-        <div class="field has-addons">
-          <div class="control">
-            <button class="button is-primary">Probabilité Classification {{ sliderValue.probClassification }}%</button>
-          </div>
-          <div class="control">
-            <button class="button">
-              <input [(ngModel)]="sliderValue.probClassification" class="slider" step="1" min="0" max="100" type="range">
-            </button>
+            &nbsp;
+            <input [(ngModel)]="sliderValue.probDetection" class="slider" step="1" min="0" max="100" type="range">
           </div>
         </div>
       </div>
       <div class="level-item">
         <div class="field has-addons">
           <div class="control">
-            <button class="button is-primary">Rotation</button>
+            <button class="button is-info">Probabilité Classification {{ sliderValue.probClassification }}%</button>
+          </div>
+          <div class="control">
+            &nbsp;
+            <input [(ngModel)]="sliderValue.probClassification" class="slider" step="1" min="0" max="100" type="range">
+          </div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="field has-addons">
+          <div class="control">
+            <button class="button is-info">Rotation</button>
           </div>
           <div class="control">
             <div class="select">
