@@ -6,7 +6,7 @@
     "start": "ng serve",
     "watch": "ng build --output-path ./dist --watch",
     "build": "ng build --aot --output-path ./dist",
-    "gh-pages": "ng build --aot --output-path ./dist --base-href 'https://ia-flash.github.io/frontend>/'",
+    "gh-pages": "ng build --aot --output-path ./dist --base-href 'https://ia-flash.github.io/frontend/' --deploy-url 'https://ia-flash.github.io/frontend/'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
