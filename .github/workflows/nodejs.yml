@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
   publish:
-    name: Publish dist folder
+    name: Publish github pages
     runs-on: ubuntu-latest
 
     strategy:
@@ -39,11 +39,11 @@ jobs:
       - name: install dependencies
         run: npm install
       - name: build
-        run: npm run build
+        run: npm run gh-pages
       - name: deploy
         uses: peaceiris/actions-gh-pages@v2.2.0
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: builds
+          PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
