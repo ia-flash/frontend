@@ -1,5 +1,4 @@
-# Frontend web application for IA Flash [![Software License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
+# Frontend web application for IA Flash [![Software License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fia-flash%2Ffrontend%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/ia-flash/frontend/goto?ref=master)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
