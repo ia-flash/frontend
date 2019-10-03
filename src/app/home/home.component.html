@@ -8,7 +8,7 @@
             <img src="assets/logo-ia-flash.png" alt="Logo">
           </a>
           <a class="navbar-item" routerLink="testapi/matchvec">
-            Test API
+            Tester notre API
           </a>
           <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
             <span></span>
@@ -18,8 +18,8 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
           <div class="navbar-end">
-            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Défi IA Flash</a>
-            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Github</a>
+            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Découvrir le projet IA Flash</a>
+            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Code source</a>
           </div>
         </div>
       </div>
@@ -27,31 +27,23 @@
   </div>
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title">IA Flash</h1>
-      <h2 class="subtitle">Détection des marque et modèle du véhicule</h2>
-      <a class="button is-rounded" routerLink="testapi/matchvec">Test API</a>
+      <h1 class="title is-size-1">IA Flash</h1>
+      <h2 class="subtitle is-size-3">Détection des marque et modèle du véhicule</h2>
+      <a class="button is-rounded is-size-5" routerLink="testapi/matchvec">Tester notre API</a>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <h3 class="title">Détection de la marque et modèle</h3>
-    <p>
-      Nous avons conçu une brique d'intelligence artificielle pour détecter la marque et modèle de véhicules dans une photo.
-    </p>
-    <br>
-    <img src="assets/iaflash.jpg" alt="Logo">
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h3 class="title">Détection des véhicules dans des vidéos</h3>
-    <p>
-      On peut analyser le contenu d'une vidéo pour détecter la marque et modèle de véhicules.
-    </p>
-    <br>
+    <div class="columns is-horizontal-center is-centered has-text-centered">
+      <div class="column is-6-desktop is-12-mobile">
+        <h3 class="title">Découvrir notre modèle de détection</h3>
+        <p>
+          Nous avons conçu une brique d'intelligence artificielle pour détecter un véhicule, sa marque et son modèle dans une photo et une vidéo.
+        </p>
+      </div>
+    </div>
     <video src="assets/out.webm" controls autoplay loop poster="assets/iaflash.jpg">
       Votre navigateur ne permet pas de lire les vidéos.
       Mais vous pouvez toujours
@@ -70,8 +62,13 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">Victor Journé</p>
-                <p class="subtitle is-6">@victorjourne</p>
+                <p>
+                  <span class="title is-4">
+                    Victor Journé
+                  </span>
+                  <br>
+                  <a href="https://github.com/victorjourne">@victorjourne</a>
+                </p>
               </div>
             </div>
           </div>
@@ -83,8 +80,13 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">Cristian Perez Brokate</p>
-                <p class="subtitle is-6">@cristianpb</p>
+                <p>
+                  <span class="title is-4">
+                    Cristian Perez Brokate
+                  </span>
+                  <br>
+                  <a href="https://github.com/cristianpb">@cristianpb</a>
+                </p>
               </div>
             </div>
           </div>
