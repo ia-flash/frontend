@@ -1,5 +1,5 @@
 ---
-name: Node version
+name: Verify node version
 
 on: [push]
 
@@ -20,30 +20,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install dependencies
         run: npm install
-      - name: build
+      - name: build angular app
         run: npm run build
-  publish:
-    name: Publish github pages
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: install dependencies
-        run: npm install
-      - name: build
-        run: npm run gh-pages
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v2.2.0
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./dist
