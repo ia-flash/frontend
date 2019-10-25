@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="level-item">
-          <input (change)="onInputUrlChange()" [class.is-danger]="invalidUrl" [(ngModel)]="person" class="input" type="text" placeholder="URL de voiture">
+          <input (change)="onInputUrlChange()" [class.is-danger]="invalidUrl" [(ngModel)]="image_url" class="input" type="text" placeholder="URL de voiture">
         </div>
         <div class="level-item" *ngIf="invalidUrl">
           <p class="help is-danger">
@@ -98,10 +98,13 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="drawBoxes()" class="button is-link"  [class.is-loading]="loadingDetect">Détection d'objets</button>
+          <button (click)="drawBoxes()" class="button is-info"  [class.is-loading]="loading">Détection d'objets</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction()" class="button is-primary" [class.is-loading]="loadingPredict">Classification Marque Modèle</button>
+          <button (click)="drawPrediction()" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
+        </div>
+        <div class="level-item">
+          <button (click)="drawAnonymisation()" class="button is-primary" [class.is-loading]="loading">Anonymisation</button>
         </div>
       </div>
     </nav>
@@ -116,6 +119,18 @@
             Pas de prédictions.
           </div>
           <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
+            <div class="columns is-mobile">
+              <div class="column is-5">
+                <p class="has-text-weight-bold">Marque/Modèle
+                </p>
+              </div>
+              <div class="column is-5">
+              </div>
+              <div class="column is-2">
+                <p class="has-text-weight-bold">%
+                </p>
+              </div>
+            </div>
             <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
               <div class="column is-5">
                 {{ probability.pred[i] }}
@@ -143,6 +158,7 @@
         </ol>
         <li>Sélectionner le bouton "Détection d'objets" pour détecter le type d'objet sur l'image</li>
         <li>Sélectionner le bouton "Classification Marque Modèle" pour détecter la marque et modèle des véhicules dans l'image</li>
+        <li>Sélectionner le bouton "Anonymisation" pour flouter les visages et le numéro de la plaque d'immatriculation de la photo</li>
       </ol>
     </div>
   </div>

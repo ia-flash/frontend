@@ -13,10 +13,9 @@ export class PreviewComponent implements OnInit {
   objectKeys = Object.keys;
   probabilities: PredBox[];
   files: FileList;
-  person = '';
+  image_url = '';
   invalidUrl = '';
-  loadingDetect: boolean;
-  loadingPredict: boolean;
+  loading: boolean;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
   selectedTab: string;
@@ -36,12 +35,12 @@ export class PreviewComponent implements OnInit {
   }
 
   onInputUrlChange() {
-    if (this.person) {
-      if (this.person.match(/\.(jpeg|jpg)$/) != null) {
-        this.invalidUrl = "";
-        this.currentInput[0] = this.person;
+    if (this.image_url) {
+      if (this.image_url.match(/\.(jpeg|jpg)$/) != null) {
+        this.invalidUrl = '';
+        this.currentInput[0] = this.image_url;
         const image = new Image();
-        image.src = this.person;
+        image.src = this.image_url;
         this.imgCanvas[0] = image;
         image.onload = () => {
           const canvas = document.getElementById(`canvas${0}`) as HTMLCanvasElement;
@@ -57,6 +56,7 @@ export class PreviewComponent implements OnInit {
   }
 
   onFileSelected(selectedFiles) {
+    this.invalidUrl = '';
 
     this.files = selectedFiles; // event.target.files;
     const files: FileList = selectedFiles; // event.target.files;
@@ -95,20 +95,43 @@ export class PreviewComponent implements OnInit {
         formData.append('image', file, file.name);
       });
     }
-    formData.append('url', this.person);
+    formData.append('url', this.image_url);
     return formData;
+  }
+
+  drawAnonymisation() {
+    this.loading = true;
+    console.log(this.image_url);
+
+    const formData = this.addAttachementsToForm();
+
+    this.predictionService.imageAnonymisation(formData).subscribe(result => {
+      console.log(result);
+      this.loading = false;
+      if (result.length > 0) {
+        this.renderAnonymisation(result);
+      } else {
+        this.invalidUrl = "Nothing to anonymyse";
+      }
+    },
+      error => {
+        this.loading = false;
+        console.log(error);
+        this.invalidUrl = "Error in prediction";
+      });
+
   }
 
 
   drawBoxes() {
-    this.loadingDetect = true;
-    console.log(this.person);
+    this.loading = true;
+    console.log(this.image_url);
 
     const formData = this.addAttachementsToForm();
 
     this.predictionService.objectDection(formData).subscribe(result => {
       console.log(result);
-      this.loadingDetect = false;
+      this.loading = false;
       if (result.length > 0) {
         this.renderPredictions(result);
       } else {
@@ -116,7 +139,7 @@ export class PreviewComponent implements OnInit {
       }
     },
       error => {
-        this.loadingDetect = false;
+        this.loading = false;
         console.log(error);
         this.invalidUrl = "Error in prediction";
       });
@@ -125,14 +148,14 @@ export class PreviewComponent implements OnInit {
 
 
   drawPrediction() {
-    this.loadingPredict = !this.loadingPredict;
+    this.loading = true;
 
     // Append attachements
     const formData = this.addAttachementsToForm();
 
     this.predictionService.classPrediction(formData).subscribe(predictions => {
       console.log(predictions);
-      this.loadingPredict = false;
+      this.loading = false;
       this.probabilities = predictions;
       if (predictions.length > 0) {
         this.renderPredictions(predictions);
@@ -140,27 +163,73 @@ export class PreviewComponent implements OnInit {
         this.invalidUrl = "No image ?";
       }
     }, error => {
-        this.loadingPredict = false;
+        this.loading = false;
         console.log(error);
         this.invalidUrl = "Error in prediction";
       });
   }
 
-  renderPredictions = (predictions) => {
+  renderAnonymisation = (predictions) => {
     predictions.forEach((predictionsImage, index) => {
       console.log('Predictions', predictionsImage);
-      const canvas = document.getElementById(`canvas${this.person ? index : index + 1}`) as HTMLCanvasElement;
+      const canvas = document.getElementById(`canvas${this.image_url ? index : index + 1}`) as HTMLCanvasElement;
       const ctx = canvas.getContext('2d');
-      canvas.width  = this.imgCanvas[this.person ? index : index + 1].width;
-      canvas.height = this.imgCanvas[this.person ? index : index + 1].height;
+      canvas.width  = this.imgCanvas[this.image_url ? index : index + 1].width;
+      canvas.height = this.imgCanvas[this.image_url ? index : index + 1].height;
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       // Font options.
       const font = '16px sans-serif';
       ctx.font = font;
       ctx.textBaseline = 'top';
-      ctx.drawImage(this.imgCanvas[this.person ? index : index + 1], 0, 0,
-        this.imgCanvas[this.person ? index : index + 1].width, this.imgCanvas[this.person ? index : index + 1].height);
+      ctx.drawImage(this.imgCanvas[this.image_url ? index : index + 1], 0, 0,
+        this.imgCanvas[this.image_url ? index : index + 1].width, this.imgCanvas[this.image_url ? index : index + 1].height);
+
+      if (predictionsImage && predictionsImage.length === 0 && this.imgCanvas.length > 0) {
+        const textWidth = ctx.measureText("Pas de prediction").width;
+        const textHeight = parseInt(font, 10); // base 10
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, textWidth + 4, textHeight + 4);
+        ctx.strokeStyle = this.colorsHX[0]; // "#00FFFF";
+        ctx.fillStyle = this.colorsHX[0]; // "#00FFFF";
+        ctx.fillText("Pas de prediction", 0, 0);
+      }
+
+      predictionsImage.forEach((prediction, predictionIndex) => {
+        const x = prediction.x1;
+        const y = prediction.y1;
+        const width = prediction.x2 - prediction.x1;
+        const height = prediction.y2 - prediction.y1;
+        if (prediction.class_name == 'band') {
+          ctx.filter = `blur(5px)`;
+          ctx.drawImage(this.imgCanvas[this.image_url ? index : index + 1], x, y,
+            width, height, x, y, width, height);
+        } else {
+          const std = width/20;
+          ctx.filter = `blur(${std}px)`;
+          ctx.drawImage(this.imgCanvas[this.image_url ? index : index + 1], x-std, y-std,
+            width+(2*std), height+(2*std), x-std, y-std, width+(2*std), height+(2*std));
+        }
+      });
+
+    });
+  }
+
+  renderPredictions = (predictions) => {
+    predictions.forEach((predictionsImage, index) => {
+      console.log('Predictions', predictionsImage);
+      const canvas = document.getElementById(`canvas${this.image_url ? index : index + 1}`) as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      canvas.width  = this.imgCanvas[this.image_url ? index : index + 1].width;
+      canvas.height = this.imgCanvas[this.image_url ? index : index + 1].height;
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+      // Font options.
+      const font = '16px sans-serif';
+      ctx.font = font;
+      ctx.textBaseline = 'top';
+      ctx.drawImage(this.imgCanvas[this.image_url ? index : index + 1], 0, 0,
+        this.imgCanvas[this.image_url ? index : index + 1].width, this.imgCanvas[this.image_url ? index : index + 1].height);
 
       if (predictionsImage && predictionsImage.length === 0 && this.imgCanvas.length > 0) {
         const textWidth = ctx.measureText("Pas de prediction").width;
@@ -186,11 +255,7 @@ export class PreviewComponent implements OnInit {
         const textWidth = ctx.measureText(prediction.label).width;
         const textHeight = parseInt(font, 10); // base 10
         ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
-      });
 
-      predictionsImage.forEach(prediction => {
-        const x = prediction.x1;
-        const y = prediction.y1;
         // Draw the text last to ensure it's on top.
         ctx.fillStyle = '#ffffff';
         ctx.fillText(prediction.label, x, y);
