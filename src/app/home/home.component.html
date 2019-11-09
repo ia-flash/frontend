@@ -54,6 +54,43 @@
 
 <section class="section">
   <div class="container has-text-centered">
+    <h3 class="title">Ils parlent de nous</h3>
+    <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="imgags">
+      <ngu-tile *nguCarouselDef="let item; let i = index">
+        <div class="card">
+          <div class="card-content">
+            <p class="title">
+              {{ item.citation }}
+            </p>
+            <p class="subtitle">
+              {{ item.author }}
+            </p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <figure class="image is-16x128">
+                <a href="{{ item.URL }}" target="_blank">
+                <img src="{{ item.img }}">
+                </a>
+              </figure>
+            </p>
+            <p class="card-footer-item">
+              <span>
+                {{ item.date }}
+              </span>
+            </p>
+          </footer>
+        </div>
+      </ngu-tile>
+      <div class="myPoint" NguCarouselPoint>
+        <span *ngFor="let i of myCarousel.pointNumbers; let i = index" [class.is-primary]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)" class="button is-rounded is-small" style="margin-left:5px; margin-right:5px"></span>
+      </div>
+    </ngu-carousel>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
     <h3 class="title">Auteurs</h3>
 
     <div class="columns">

@@ -10,6 +10,8 @@ import { SivnormComponent } from './sivnorm/sivnorm.component';
 import { HomeComponent } from './home/home.component';
 import { VideoComponent } from './video/video.component';
 import { ImageDecodePipe } from './image-decode.pipe';
+import { NguCarouselModule } from '@ngu/carousel';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ImageDecodePipe } from './image-decode.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NguCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
