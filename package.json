@@ -7,7 +7,7 @@
     "watch": "ng build --output-path ./dist --watch",
     "build": "ng build --aot --prod --output-path ./dist",
     "gh-pages": "ng build --aot --prod --output-path ./dist --base-href 'https://ia-flash.github.io/frontend/' --deploy-url 'https://ia-flash.github.io/frontend/'",
-    "s3": "aws s3 cp dist/ s3://cpu.iaflash.fr --recursive",
+    "s3": "npm run build && aws s3 cp dist/ s3://cpu.iaflash.fr --recursive",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

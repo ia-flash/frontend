@@ -15,6 +15,7 @@ export class SivnormComponent implements OnInit {
   currentInput: any;
   files: FileList;
   resultCsv: any;
+  loading: boolean;
   inputCsv : any;
   tbRefname: string = "siv";
   selectedTab: string;
@@ -31,7 +32,9 @@ export class SivnormComponent implements OnInit {
   }
 
   onClickMe() {
+    this.loading = true;
     this.predictionService.callSivnorm(this.marque, this.modele, this.tbRefname).subscribe(result => {
+      this.loading = false;
       console.log(result);
       this.clean_marque = result.marque;
       this.clean_modele = result.modele;
@@ -59,12 +62,11 @@ export class SivnormComponent implements OnInit {
   }
 
   clickCsv() {
+    this.loading = true;
     this.predictionService.callSivnormCsv(this.files, this.tbRefname).subscribe(result => {
-
-
-
-     this.resultCsv = result.split("\n").map(item => item.split(","));
-     console.log(result.split("\n").map(item => item.split(",")));
+      this.loading = false;
+      this.resultCsv = result.split("\n").map(item => item.split(","));
+      console.log(result.split("\n").map(item => item.split(",")));
     });
   }
 
