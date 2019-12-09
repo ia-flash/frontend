@@ -21,7 +21,7 @@ export class PredictionsService {
   }
 
   objectDection(formData: FormData | {}) {
-    return this.http.post<PredBox[]>(`/matchvec/object_detection`, formData);
+    return this.http.post<PredBox[]>((environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/object_detection`, formData);
   }
 
   videoDetection(formData: FormData | {}) {
@@ -37,16 +37,16 @@ export class PredictionsService {
   }
 
   classPrediction(formData: FormData) {
-    return this.http.post<PredBox[]>(`/matchvec/predict`, formData);
+    return this.http.post<PredBox[]>((environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/predict`, formData);
   }
 
   callSivnorm(marque, modele, tbRefname) {
-    return this.http.get<SivnormResponse>(`/sivnorm/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
+    return this.http.get<SivnormResponse>((environment.apiMatchvec ? environment.apiMatchvec : '/sivnorm') + `/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
   }
 
   callSivnormCsv(files, tbRefname) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this.http.post(`/sivnorm/norm/${tbRefname}`, formData, {responseType: 'text'});
+    return this.http.post((environment.apiMatchvec ? environment.apiMatchvec : '/sivnorm') + `/norm/${tbRefname}`, formData, {responseType: 'text'});
   }
 }

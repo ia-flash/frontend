@@ -1,5 +1,8 @@
+const urlSivnorm = process.env.URL_SIVNORM || null ;
+const urlMatchvec = process.env.URL_MATCHVEC || null ;
+
 export const environment = {
   production: true,
-  api: `https://iaflash.eig-forever.org/api`,
-  sivnorm: `https://iaflash.eig-forever.org`,
+  apiMatchvec: urlMatchvec,
+  apiSivnorm: urlSivnorm
 };
