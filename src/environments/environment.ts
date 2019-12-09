@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: `http://localhost:5000/api`,
-  sivnorm: `http://localhost:5000`
+  apiMatchvec: null,
+  apiSivnorm: null
 };
 
 /*
