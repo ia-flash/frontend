@@ -7,6 +7,7 @@ const targetPath = './src/environments/environment.prod.ts';
 
 // Load node modules
 const colors = require('colors');
+require('dotenv').config()
 const urlSivnorm = process.env.URL_SIVNORM || null ;
 const urlMatchvec = process.env.URL_MATCHVEC || null ;
 
