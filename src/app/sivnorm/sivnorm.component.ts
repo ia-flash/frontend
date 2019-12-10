@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
+import { GoogleAnalyticsService } from '../google-analytics.service';
 
 @Component({
   selector: 'app-sivnorm',
@@ -21,7 +22,10 @@ export class SivnormComponent implements OnInit {
   selectedTab: string;
   burger = false;
 
-  constructor(private predictionService: PredictionsService) { }
+  constructor(
+    private predictionService: PredictionsService,
+    public googleAnalyticsService: GoogleAnalyticsService
+  ) { }
 
   ngOnInit() {
     this.selectedTab = 'sivnorm';
@@ -32,6 +36,7 @@ export class SivnormComponent implements OnInit {
   }
 
   onClickMe() {
+    this.googleAnalyticsService.eventEmitter("api", "sivnorm", `${this.modele}&${this.marque}`, "click", 1);
     this.loading = true;
     this.predictionService.callSivnorm(this.marque, this.modele, this.tbRefname).subscribe(result => {
       this.loading = false;

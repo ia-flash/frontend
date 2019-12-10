@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { VideoComponent } from './video/video.component';
 import { ImageDecodePipe } from './image-decode.pipe';
 import { NguCarouselModule } from '@ngu/carousel';
+import { GoogleAnalyticsService } from './google-analytics.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { NguCarouselModule } from '@ngu/carousel';
     FormsModule,
     NguCarouselModule
   ],
-  providers: [],
+  providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
