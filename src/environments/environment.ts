@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiMatchvec: null,
-  apiSivnorm: null
+  apiSivnorm: null,
+  gpu: false
 };
 
 /*

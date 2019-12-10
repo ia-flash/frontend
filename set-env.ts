@@ -14,7 +14,8 @@ const urlMatchvec = process.env.URL_MATCHVEC || null ;
 const envConfigFile = `export const environment = {
   production: true,
   apiMatchvec: '${urlMatchvec}',
-  apiSivnorm: '${urlSivnorm}'
+  apiSivnorm: '${urlSivnorm}',
+  gpu: false
 };
 `;
 

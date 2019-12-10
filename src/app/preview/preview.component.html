@@ -103,7 +103,7 @@
         <div class="level-item">
           <button (click)="drawPrediction()" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
         </div>
-        <div class="level-item">
+        <div class="level-item" *ngIf="gpu">
           <button (click)="drawAnonymisation()" class="button is-primary" [class.is-loading]="loading">Anonymisation</button>
         </div>
       </div>
@@ -158,7 +158,7 @@
         </ol>
         <li>Sélectionner le bouton "Détection d'objets" pour détecter le type d'objet sur l'image</li>
         <li>Sélectionner le bouton "Classification Marque Modèle" pour détecter la marque et modèle des véhicules dans l'image</li>
-        <li>Sélectionner le bouton "Anonymisation" pour flouter les visages et le numéro de la plaque d'immatriculation de la photo</li>
+        <li *ngIf="gpu">Sélectionner le bouton "Anonymisation" pour flouter les visages et le numéro de la plaque d'immatriculation de la photo</li>
       </ol>
     </div>
   </div>

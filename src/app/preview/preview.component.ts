@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
 import { PredBox } from '../predbox';
+import { environment } from '../../environments/environment';
 import { GoogleAnalyticsService } from '../google-analytics.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class PreviewComponent implements OnInit {
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
   selectedTab: string;
   burger = false;
+  gpu = environment.gpu;
 
   constructor(
     private predictionService: PredictionsService,
