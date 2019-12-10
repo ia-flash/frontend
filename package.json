@@ -7,7 +7,7 @@
     "config": "./node_modules/.bin/ts-node set-env.ts",
     "watch": "ng build --output-path ./dist --watch",
     "build": "npm run config && ng build --aot --prod --output-path ./dist",
-    "gh-pages": "npm run config && ng build --aot --prod --output-path ./dist --base-href 'https://ia-flash.github.io/frontend/' --deploy-url 'https://ia-flash.github.io/frontend/' && cp dist/index.html dist/404.html",
+    "gh-pages": "npm run config && ng build --aot --prod --output-path ./dist --base-href 'https://ia-flash.github.io/frontend/' --deploy-url 'https://ia-flash.github.io/frontend/' && cp dist/index.html dist/404.html && echo 'iaflash.fr' | tee dist/CNAME",
     "s3": "npm run build && aws s3 cp dist/ s3://cpu.iaflash.fr --recursive",
     "test": "ng test",
     "lint": "ng lint",
