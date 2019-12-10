@@ -5,7 +5,7 @@
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item">
-            <img src="assets/logo-ia-flash.png" alt="Logo">
+            <img src="assets/logo-ia-flash.png" alt="Logo IA Flash">
           </a>
           <a class="navbar-item" routerLink="testapi/matchvec">
             Tester notre API
@@ -43,7 +43,7 @@
           Nous avons conçu une brique d'intelligence artificielle pour détecter un véhicule, sa marque et son modèle dans une photo et une vidéo.
         </p>
         <br>
-        <iframe class="responsive-iframe" frameborder="0" src="https://www.dailymotion.com/embed/video/x7okqx3" allowfullscreen allow="autoplay"></iframe>
+        <iframe class="responsive-iframe" title="Vidéo présentation IA Flash" frameborder="0" src="https://www.dailymotion.com/embed/video/x7okqx3" allowfullscreen allow="autoplay"></iframe>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
             <p class="card-footer-item">
               <figure class="image is-16x128">
                 <a href="{{ item.URL }}" target="_blank">
-                <img src="{{ item.img }}">
+                  <img src="{{ item.img }}" alt="{{ item.site }}">
                 </a>
               </figure>
             </p>
@@ -145,13 +145,13 @@
           <div class="field">
             <label class="label title is-4">Nous contacter</label>
             <div class="control is-fullwidth">
-              <input class="input is-rounded" type="text" placeholder="Nom: "  name="name" required>
+              <input class="input" type="text" placeholder="Nom: "  name="name" required>
             </div>
           </div>
 
           <div class="field">
             <div class="control is-expanded">
-              <input class="input is-rounded" type="text" placeholder="Email: " name="email" required>
+              <input class="input" type="text" placeholder="Email: " name="email" required>
             </div>
           </div>
 
@@ -163,7 +163,7 @@
 
           <div class="field">
             <div class="control is-expanded">
-              <input class="button is-primary is-rounded" type="submit" value="Envoyer">
+              <input class="button is-primary" type="submit" value="Envoyer">
             </div>
           </div>
         </form>
