@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
 import { GoogleAnalyticsService } from '../google-analytics.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-sivnorm',
@@ -21,6 +22,7 @@ export class SivnormComponent implements OnInit {
   tbRefname: string = "siv";
   selectedTab: string;
   burger = false;
+  gpu = environment.gpu;
 
   constructor(
     private predictionService: PredictionsService,

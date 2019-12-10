@@ -44,10 +44,16 @@
   </div>
 </section>
 
+
 <section class="section">
   <div class="container">
     <div class="columns is-horizontal-center is-centered has-text-centered">
       <div class="column is-8-desktop is-12-mobile">
+        <p *ngIf="!(gpu)">
+          Nous avons développé également une fonctionnalité pour utiliser IA Flash pour l'analyse des vidéos. Si vous voulez tester avec vos vidéos, veuillez 
+          <a href="#contact" target="_blank">nous contacter</a>.
+        </p>
+        <br>
         <video src="assets/out.webm" controls autoplay loop poster="assets/iaflash.jpg">
           Votre navigateur ne permet pas de lire les vidéos.
           Mais vous pouvez toujours
@@ -59,12 +65,12 @@
 </section>
 
 
-<section class="section">
+<section class="section" *ngIf="gpu">
   <div class="container">
     <h3 class="title">Instructions  </h3>
     <div class="content">
       <ol type="1">
-        <li>Sélectionner une video: </li>
+        <li>Sélectionner une vidéo: </li>
         <ol type="2">
           <li>Utiliser le bouton "Nombre rotation" pour choisir le nombre de rotation de 90° à faire sur la vidéo.</li>
         </ol>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-video',
@@ -20,6 +21,7 @@ export class VideoComponent implements OnInit {
   selectedTab: string;
   uploadedVideo: any;
   burger = false;
+  gpu = environment.gpu;
 
   constructor(private predictionService: PredictionsService, private sanitizer: DomSanitizer) { }
 
