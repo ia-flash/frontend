@@ -41,12 +41,12 @@ export class PredictionsService {
   }
 
   callSivnorm(marque, modele, tbRefname) {
-    return this.http.get<SivnormResponse>((environment.apiMatchvec ? environment.apiMatchvec : '/sivnorm') + `/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
+    return this.http.get<SivnormResponse>((environment.apiSivnorm ? environment.apiSivnorm : '/sivnorm') + `/norm/${tbRefname}?marque=${marque}&modele=${modele}`);
   }
 
   callSivnormCsv(files, tbRefname) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this.http.post((environment.apiMatchvec ? environment.apiMatchvec : '/sivnorm') + `/norm/${tbRefname}`, formData, {responseType: 'text'});
+    return this.http.post((environment.apiSivnorm ? environment.apiSivnorm : '/sivnorm') + `/norm/${tbRefname}`, formData, {responseType: 'text'});
   }
 }
