@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from '../predictions.service';
 import { PredBox } from '../predbox';
+import { GoogleAnalyticsService } from '../google-analytics.service';
 
 @Component({
   selector: 'app-preview',
@@ -21,7 +22,10 @@ export class PreviewComponent implements OnInit {
   selectedTab: string;
   burger = false;
 
-  constructor(private predictionService: PredictionsService) { }
+  constructor(
+    private predictionService: PredictionsService,
+    public googleAnalyticsService: GoogleAnalyticsService
+  ){ }
 
   ngOnInit() {
     this.selectedTab = 'preview';
@@ -105,6 +109,7 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
+    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "anonymisation", 1);
     this.predictionService.imageAnonymisation(formData).subscribe(result => {
       console.log(result);
       this.loading = false;
@@ -129,6 +134,7 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
+    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "objectDection", 1);
     this.predictionService.objectDection(formData).subscribe(result => {
       console.log(result);
       this.loading = false;
@@ -153,6 +159,7 @@ export class PreviewComponent implements OnInit {
     // Append attachements
     const formData = this.addAttachementsToForm();
 
+    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "classification", 1);
     this.predictionService.classPrediction(formData).subscribe(predictions => {
       console.log(predictions);
       this.loading = false;
