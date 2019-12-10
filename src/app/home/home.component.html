@@ -42,13 +42,10 @@
         <p>
           Nous avons conçu une brique d'intelligence artificielle pour détecter un véhicule, sa marque et son modèle dans une photo et une vidéo.
         </p>
+        <br>
+        <iframe class="responsive-iframe" frameborder="0" src="https://www.dailymotion.com/embed/video/x7okqx3" allowfullscreen allow="autoplay"></iframe>
       </div>
     </div>
-    <video src="assets/out.webm" controls autoplay loop poster="assets/iaflash.jpg">
-      Votre navigateur ne permet pas de lire les vidéos.
-      Mais vous pouvez toujours
-      <a href="assets/out.webm">télécharger</a> !
-    </video>
   </div>
 </section>
 
@@ -94,7 +91,7 @@
   <div class="container has-text-centered">
     <h3 class="title">Auteurs</h3>
 
-    <div class="columns">
+    <div class="columns is-multiline">
       <div class="column is-4">
         <div class="card">
           <div class="card-content">
@@ -143,6 +140,35 @@
         </div>
       </div>
 
+      <div class="column is-offset-4 is-4">
+        <form action="https://formspree.io/datalab@interieur.gouv.fr" method="POST">
+          <div class="field">
+            <label class="label title is-4">Nous contacter</label>
+            <div class="control is-fullwidth">
+              <input class="input is-rounded" type="text" placeholder="Nom: "  name="name" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control is-expanded">
+              <input class="input is-rounded" type="text" placeholder="Email: " name="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control is-expanded">
+              <textarea class="textarea" placeholder="Message: " name="message"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control is-expanded">
+              <input class="button is-primary is-rounded" type="submit" value="Envoyer">
+            </div>
+          </div>
+        </form>
+      </div>
+
     </div>
   </div>
 </section>
@@ -151,14 +177,11 @@
 <footer class="footer">
   <div class="container">
     <div class="content">
-
       <div class="has-text-centered">
         <p>
           2019 - IA Flash
         </p>
       </div>
-      <p>
-      </p>
     </div>
   </div>
 </footer>
