@@ -69,6 +69,18 @@ export class HomeComponent implements OnInit {
       author: "Bastien L"
     },
     {
+      site: "PhonAndroid",
+      title:
+        "Radars de vitesse automatiques : l’intelligence artificielle bientôt à la rescousse pour éviter les erreurs",
+      img: "assets/phonandroid.png",
+      URL:
+        "https://www.phonandroid.com/radars-automatiques-intelligence-artificielle-rescousse-pour-eviter-erreurs.html",
+      date: "29 Octobre 2019",
+      citation:
+        "Pour mettre fin aux erreurs d’identification, l’État peut désormais compter sur le renfort de l’IA.",
+      author: "David Igue"
+    },
+    {
       site: "BFMTV",
       title:
         "Sécurité routière: les radars bientôt aidés par l'intelligence artificielle",
@@ -78,7 +90,7 @@ export class HomeComponent implements OnInit {
       date: "28 Octobre 2019",
       citation:
         "S'il est forcément moins performant sur des modèles atypiques ou trop récents, ce logiciel fait tout de même preuve d'une redoutable efficacité",
-      author: "BFMTV"
+      author: "Julien Bonnet"
     },
     {
       site: "Capital",
