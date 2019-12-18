@@ -198,6 +198,9 @@
         </div>
       </div>
     </nav>
+    <div *ngIf="progress">
+      <progress class="progress is-primary" value="{{ progress }}" max="100">{{ progress }}%</progress>
+    </div>
   </div>
 </section>
 

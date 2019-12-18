@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { PredBox } from './predbox';
 
@@ -47,6 +47,11 @@ export class PredictionsService {
   callSivnormCsv(files, tbRefname) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this.http.post((environment.apiSivnorm ? environment.apiSivnorm : '/sivnorm') + `/norm/${tbRefname}`, formData, {responseType: 'text'});
+    const req = new HttpRequest('POST', (environment.apiSivnorm ? environment.apiSivnorm : '/sivnorm') + `/norm/${tbRefname}`, formData, {
+      responseType: 'text',
+      reportProgress: true
+    });
+    return this.http.request(req);
+
   }
 }
