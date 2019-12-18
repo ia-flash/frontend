@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { PredBox } from './predbox';
 
@@ -21,7 +21,10 @@ export class PredictionsService {
   }
 
   objectDection(formData: FormData | {}) {
-    return this.http.post<PredBox[]>((environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/object_detection`, formData);
+    const req = new HttpRequest('POST', (environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/object_detection`, formData, {
+      reportProgress: true
+    });
+    return this.http.request(req);
   }
 
   videoDetection(formData: FormData | {}) {
@@ -37,7 +40,10 @@ export class PredictionsService {
   }
 
   classPrediction(formData: FormData) {
-    return this.http.post<PredBox[]>((environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/predict`, formData);
+    const req = new HttpRequest('POST', (environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/predict`, formData, {
+      reportProgress: true
+    });
+    return this.http.request(req);
   }
 
   callSivnorm(marque, modele, tbRefname) {

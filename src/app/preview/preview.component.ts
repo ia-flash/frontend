@@ -3,6 +3,7 @@ import { PredictionsService } from '../predictions.service';
 import { PredBox } from '../predbox';
 import { environment } from '../../environments/environment';
 import { GoogleAnalyticsService } from '../google-analytics.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-preview',
@@ -18,6 +19,7 @@ export class PreviewComponent implements OnInit {
   image_url = '';
   invalidUrl = '';
   loading: boolean;
+  progress: number;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
   selectedTab: string;
@@ -137,19 +139,33 @@ export class PreviewComponent implements OnInit {
     const formData = this.addAttachementsToForm();
 
     this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "objectDection", 1);
-    this.predictionService.objectDection(formData).subscribe(result => {
-      console.log(result);
-      this.loading = false;
-      if (result.length > 0) {
-        this.renderPredictions(result);
-      } else {
-        this.invalidUrl = "No image ?";
-      }
-    },
-      error => {
+
+    this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded / event.total * 100);
+            console.log(`Uploaded! ${this.progress}%`);
+            break;
+          case HttpEventType.Response:
+            this.loading = false;
+            this.progress = null;
+            if (event.body.length > 0) {
+              this.renderPredictions(event.body);
+            } else {
+              this.invalidUrl = 'No image ?';
+            }
+        }
+      }, error => {
         this.loading = false;
+        this.progress = null;
         console.log(error);
-        this.invalidUrl = "Error in prediction";
+        this.invalidUrl = 'Error in prediction';
       });
 
   }
@@ -162,20 +178,34 @@ export class PreviewComponent implements OnInit {
     const formData = this.addAttachementsToForm();
 
     this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "classification", 1);
-    this.predictionService.classPrediction(formData).subscribe(predictions => {
-      console.log(predictions);
-      this.loading = false;
-      this.probabilities = predictions;
-      if (predictions.length > 0) {
-        this.renderPredictions(predictions);
-      } else {
-        this.invalidUrl = "No image ?";
-      }
+    this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded / event.total * 100);
+            console.log(`Uploaded! ${this.progress}%`);
+            break;
+          case HttpEventType.Response:
+            this.loading = false;
+            this.progress = null;
+            this.probabilities = event.body;
+            if (event.body.length > 0) {
+              this.renderPredictions(event.body);
+            } else {
+              this.invalidUrl = 'No image ?';
+            }
+        }
     }, error => {
-        this.loading = false;
-        console.log(error);
-        this.invalidUrl = "Error in prediction";
-      });
+      this.loading = false;
+      this.progress = null;
+      console.log(error);
+      this.invalidUrl = 'Error in prediction';
+    });
   }
 
   renderAnonymisation = (predictions) => {
