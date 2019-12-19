@@ -138,7 +138,6 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
-    this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 1);
 
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
@@ -163,8 +162,10 @@ export class PreviewComponent implements OnInit {
               this.progress = null;
             }, 1000);
             if (event.body.length > 0) {
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", event.body.length);
               this.renderPredictions(event.body);
             } else {
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 0);
               this.invalidUrl = 'No image ?';
             }
         }
@@ -173,6 +174,7 @@ export class PreviewComponent implements OnInit {
         this.progress = null;
         console.log(error);
         this.invalidUrl = 'Error in prediction';
+        this.googleAnalyticsService.eventEmitter("matchvec", "error", "objectDection", 1);
       });
 
   }
@@ -184,7 +186,6 @@ export class PreviewComponent implements OnInit {
     // Append attachements
     const formData = this.addAttachementsToForm();
 
-    this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 1);
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
@@ -210,8 +211,10 @@ export class PreviewComponent implements OnInit {
             this.probabilities = event.body;
             if (event.body.length > 0) {
               this.renderPredictions(event.body);
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", event.body.length);
             } else {
               this.invalidUrl = 'No image ?';
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 0);
             }
         }
     }, error => {
@@ -219,6 +222,7 @@ export class PreviewComponent implements OnInit {
       this.progress = null;
       console.log(error);
       this.invalidUrl = 'Error in prediction';
+      this.googleAnalyticsService.eventEmitter("matchvec", "error", "classification", 1);
     });
   }
 
