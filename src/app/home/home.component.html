@@ -81,7 +81,7 @@
         </div>
       </ngu-tile>
       <div class="myPoint" NguCarouselPoint>
-        <span *ngFor="let i of myCarousel.pointNumbers; let i = index" [class.is-primary]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)" class="button is-rounded is-small" style="margin-left:5px; margin-right:5px"></span>
+        <span *ngFor="let i of myCarousel.pointNumbers; let i = index" [class.is-primary]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)" class="button is-rounded is-small point-number"></span>
       </div>
     </ngu-carousel>
   </div>
@@ -102,6 +102,7 @@
                     Victor Journé
                   </span>
                   <br>
+                  Data Scientist &nbsp;&nbsp;
                   <a href="https://github.com/victorjourne">@victorjourne</a>
                 </p>
               </div>
@@ -120,6 +121,7 @@
                     Cristian Perez Brokate
                   </span>
                   <br>
+                  Data Scientist &nbsp;&nbsp;
                   <a href="https://github.com/cristianpb">@cristianpb</a>
                 </p>
               </div>
@@ -133,7 +135,13 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">Daniel Ansellem</p>
+                <p>
+                  <span class="title is-4">
+                    Daniel Ansellem
+                  </span>
+                  <br>
+                  Administrateur Ministériel des données &nbsp;&nbsp;
+                </p>
               </div>
             </div>
           </div>
@@ -161,11 +169,12 @@
             </div>
           </div>
 
-          <div class="field">
-            <div class="control is-expanded">
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
               <input class="button is-primary" type="submit" value="Envoyer">
-            </div>
+            </p>
           </div>
+
         </form>
       </div>
 
