@@ -135,10 +135,7 @@ export class PreviewComponent implements OnInit {
   drawBoxes() {
     this.loading = true;
     console.log(this.image_url);
-
     const formData = this.addAttachementsToForm();
-
-
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
@@ -210,19 +207,19 @@ export class PreviewComponent implements OnInit {
             }, 1000);
             this.probabilities = event.body;
             if (event.body.length > 0) {
-              this.renderPredictions(event.body);
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", event.body.length);
+              this.renderPredictions(event.body);
             } else {
-              this.invalidUrl = 'No image ?';
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 0);
+              this.invalidUrl = 'No image ?';
             }
         }
     }, error => {
+      this.googleAnalyticsService.eventEmitter("matchvec", "error", "classification", 1);
       this.loading = false;
       this.progress = null;
       console.log(error);
       this.invalidUrl = 'Error in prediction';
-      this.googleAnalyticsService.eventEmitter("matchvec", "error", "classification", 1);
     });
   }
 

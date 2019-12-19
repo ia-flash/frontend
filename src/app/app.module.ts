@@ -12,6 +12,7 @@ import { VideoComponent } from './video/video.component';
 import { ImageDecodePipe } from './image-decode.pipe';
 import { NguCarouselModule } from '@ngu/carousel';
 import { GoogleAnalyticsService } from './google-analytics.service';
+import { WatchDirective } from './watch.directive';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { GoogleAnalyticsService } from './google-analytics.service';
     HomeComponent,
     VideoComponent,
     ImageDecodePipe,
+    WatchDirective,
   ],
   imports: [
     BrowserModule,

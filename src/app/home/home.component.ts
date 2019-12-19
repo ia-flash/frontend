@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { NguCarouselConfig } from "@ngu/carousel";
-import { GoogleAnalyticsService } from '../google-analytics.service';
 
 @Component({
   selector: "app-home",
@@ -137,18 +136,12 @@ export class HomeComponent implements OnInit {
     easing: 'cubic-bezier(0, 0, 0.2, 1)'
   };
 
-  constructor(
-    public googleAnalyticsService: GoogleAnalyticsService
-  ) {}
+  constructor() {}
 
   ngOnInit() {}
 
   toggleBurger() {
     this.burger = !this.burger;
-  }
-
-  clickVideo() {
-    this.googleAnalyticsService.eventEmitter('home', 'watch', 'presentation', 0);
   }
 
 }
