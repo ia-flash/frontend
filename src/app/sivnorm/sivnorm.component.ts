@@ -91,11 +91,10 @@ export class SivnormComponent implements OnInit {
             console.log(`Uploaded! ${this.progress}%`);
             break;
           case HttpEventType.Response:
-            console.log('User successfully created!', event.body);
             this.loading = false;
             this.progress = null;
             this.resultCsv = event.body.split('\n').map(item => item.split(','));
-            console.log(event.body.split('\n').map(item => item.split(',')));
+            console.log(this.resultCsv);
         }
       }, error => {
         this.loading = false;

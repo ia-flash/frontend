@@ -84,28 +84,14 @@
           </a>
         </div>
         <div class="level-item">
-          <div class="dropdown is-hoverable control">
-            <div class="dropdown-trigger">
-              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                <span>{{tbRefname}}</span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-              <div class="dropdown-content">
-                <a class="dropdown-item is-active" [ngClass]="{'is-active': tbRefname === 'siv'}" (click)="tbRefname='siv'">
-                  <p>siv</p>
-                </a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'caradisiac'}" (click)="tbRefname='caradisiac'">
-                  <p>caradisiac</p>
-                </a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" [ngClass]="{'is-active': tbRefname === 'siv_caradisiac'}" (click)="tbRefname='siv_caradisiac'">
-                  <p>caradisac+siv</p>
-                </a>
+          <div class="field">
+            <div class="control is-expanded">
+              <div class="select is-fullwidth">
+                <select name="country">
+                  <option [ngClass]="{'is-active': tbRefname === 'siv'}" (click)="tbRefname='siv'" value="siv">siv</option>
+                  <option [ngClass]="{'is-active': tbRefname === 'cardisiac_siv'}" (click)="tbRefname='siv_caradisiac'" value="siv_caradisiac">cardisiac+siv</option>
+                  <option [ngClass]="{'is-active': tbRefname === 'cardisiac_siv'}" (click)="tbRefname='caradisiac'" value="caradisiac">cardisiac</option>
+                </select>
               </div>
             </div>
           </div>
@@ -171,6 +157,10 @@
     <h2 class="title">
       Match par lot
     </h2>
+    <p>
+      On peut prendre en charge aussi de fichiers csv avec deux colonnes: marque et modèle
+    </p>
+    <br>
     <nav class="level">
       <!-- Left side -->
       <div class="level-left">
