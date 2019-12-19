@@ -20,6 +20,7 @@ export class PreviewComponent implements OnInit {
   invalidUrl = '';
   loading: boolean;
   progress: number;
+  progress_message: string;
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
   selectedTab: string;
@@ -142,18 +143,25 @@ export class PreviewComponent implements OnInit {
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
-            console.log('Request has been made!');
+            this.progress_message = "Test de connection 📡"
             break;
           case HttpEventType.ResponseHeader:
-            console.log('Response header has been received!');
+            this.progress_message = "Bonne connection ✔️"
             break;
           case HttpEventType.UploadProgress:
             this.progress = Math.round(event.loaded / event.total * 100);
-            console.log(`Uploaded! ${this.progress}%`);
+            if (this.progress == 100) {
+              this.progress_message = "Calculating 🧠";
+            } else {
+              this.progress_message = "Uploading image 📨";
+            }
             break;
           case HttpEventType.Response:
             this.loading = false;
-            this.progress = null;
+            this.progress_message = "Done !";
+            setTimeout(()=>{
+              this.progress = null;
+            }, 1000);
             if (event.body.length > 0) {
               this.renderPredictions(event.body);
             } else {
@@ -180,18 +188,25 @@ export class PreviewComponent implements OnInit {
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
-            console.log('Request has been made!');
+            this.progress_message = "Test de connection 📡"
             break;
           case HttpEventType.ResponseHeader:
-            console.log('Response header has been received!');
+            this.progress_message = "Bonne connection ✔️"
             break;
           case HttpEventType.UploadProgress:
             this.progress = Math.round(event.loaded / event.total * 100);
-            console.log(`Uploaded! ${this.progress}%`);
+            if (this.progress == 100) {
+              this.progress_message = "Calculating 🧠";
+            } else {
+              this.progress_message = "Uploading image 📨";
+            }
             break;
           case HttpEventType.Response:
             this.loading = false;
-            this.progress = null;
+            this.progress_message = "Done !";
+            setTimeout(()=>{
+              this.progress = null;
+            }, 1000);
             this.probabilities = event.body;
             if (event.body.length > 0) {
               this.renderPredictions(event.body);
