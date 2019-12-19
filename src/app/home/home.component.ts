@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
     },
     load: 2,
     velocity: 0,
-    touch: false,
+    touch: true,
     loop: true,
     interval: {
       timing: 7000,
