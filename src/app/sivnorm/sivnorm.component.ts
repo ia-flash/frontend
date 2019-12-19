@@ -40,7 +40,7 @@ export class SivnormComponent implements OnInit {
   }
 
   onClickMe() {
-    this.googleAnalyticsService.eventEmitter('sivnorm', 'api', 'click', `${this.tbRefname}&${this.modele}&${this.marque}`, 1);
+    this.googleAnalyticsService.eventEmitter('sivnorm', 'api', `${this.tbRefname}&${this.modele}&${this.marque}`, 1);
     this.loading = true;
     this.predictionService.callSivnorm(this.marque, this.modele, this.tbRefname).subscribe(result => {
       this.loading = false;
@@ -75,7 +75,7 @@ export class SivnormComponent implements OnInit {
   }
 
   clickCsv() {
-    this.googleAnalyticsService.eventEmitter('sivnorm', 'api', 'click', `${this.tbRefname}&csv`, 1);
+    this.googleAnalyticsService.eventEmitter('sivnorm', 'api', `${this.tbRefname}&csv`, 1);
     this.loading = true;
     this.predictionService.callSivnormCsv(this.files, this.tbRefname).subscribe(
       (event: HttpEvent<any>) => {

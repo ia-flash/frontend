@@ -113,7 +113,6 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
-    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "anonymisation", 1);
     this.predictionService.imageAnonymisation(formData).subscribe(result => {
       console.log(result);
       this.loading = false;
@@ -138,7 +137,7 @@ export class PreviewComponent implements OnInit {
 
     const formData = this.addAttachementsToForm();
 
-    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "objectDection", 1);
+    this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 1);
 
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
@@ -177,7 +176,7 @@ export class PreviewComponent implements OnInit {
     // Append attachements
     const formData = this.addAttachementsToForm();
 
-    this.googleAnalyticsService.eventEmitter("matchvec", "api", "click", "classification", 1);
+    this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 1);
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
