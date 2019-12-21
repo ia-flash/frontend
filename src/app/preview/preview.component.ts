@@ -47,7 +47,7 @@ export class PreviewComponent implements OnInit {
     if (this.image_url) {
       if (this.image_url.match(/\.(jpeg|jpg)$/) != null) {
         this.invalidUrl = '';
-        this.currentInput[0] = this.image_url;
+        this.currentInput[0] = {name: this.image_url, size: null};
         const image = new Image();
         image.src = this.image_url;
         this.imgCanvas[0] = image;
@@ -66,18 +66,12 @@ export class PreviewComponent implements OnInit {
 
   onFileSelected(selectedFiles) {
     this.invalidUrl = '';
-
-    this.files = selectedFiles; // event.target.files;
-    const files: FileList = selectedFiles; // event.target.files;
-    console.log(files);
+    this.files = selectedFiles;
+    const files: FileList = selectedFiles;
     if (files.length > 0) {
       this.probabilities = null;
       Array.from(files).forEach((file, index) => {
-        this.currentInput[index + 1] = file.name; // .push(file.name);
-      });
-
-      Array.from(files).forEach((file, index) => {
-        console.log('index', index);
+        this.currentInput[index + 1] = {name: file.name, size: (file.size/ 1000000)};
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
@@ -99,12 +93,14 @@ export class PreviewComponent implements OnInit {
   addAttachementsToForm() {
     // Append attachements
     const formData: FormData = new FormData();
+    if (this.image_url) {
+      formData.append('url', this.image_url);
+    }
     if (this.files && this.files.length > 0) {
       Array.from(this.files).forEach(file => {
         formData.append('image', file, file.name);
       });
     }
-    formData.append('url', this.image_url);
     return formData;
   }
 
@@ -132,9 +128,8 @@ export class PreviewComponent implements OnInit {
   }
 
 
-  drawBoxes() {
+  drawDetection() {
     this.loading = true;
-    console.log(this.image_url);
     const formData = this.addAttachementsToForm();
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {

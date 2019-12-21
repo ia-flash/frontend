@@ -78,10 +78,10 @@
                   <i class="fas fa-upload"></i>
                 </span>
                 <span class="file-label">
-                  Choisir un fichier
+                  Choisir une image
                 </span>
               </span>
-              <span class="file-name" id="filename">{{ objectKeys(currentInput) }}</span>
+              <span *ngIf="objectKeys(currentInput).length > 0" class="file-name" id="filename">{{ objectKeys(currentInput).length }} images</span>
             </label>
           </div>
         </div>
@@ -98,7 +98,7 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="drawBoxes()" class="button is-info"  [class.is-loading]="loading">Détection d'objets</button>
+          <button (click)="drawDetection()" class="button is-info"  [class.is-loading]="loading">Détection d'objets</button>
         </div>
         <div class="level-item">
           <button (click)="drawPrediction()" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
@@ -135,33 +135,40 @@
           <div class="column">
             <canvas id="{{ 'canvas' + key }}"></canvas>
           </div>
-          <div class="column is-4" *ngIf="probabilities && probabilities.length > 0">
-            <div *ngIf="probabilities[img_ind].length === 0" class="notification">
-              Pas de prédictions.
+          <div class="column is-4">
+            <div>
+              <p class="title is-size-5">
+                {{ currentInput[key].name }} 
+              </p>
+              <p *ngIf="currentInput[key].size" class="subtitle is-size-7">
+                {{ currentInput[key].size | number : '1.2-2' }} Mb
+              </p>
             </div>
-            <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
-              <div class="columns is-mobile">
-                <div class="column is-5">
-                  <p class="has-text-weight-bold">Marque/Modèle
-                  </p>
-                </div>
-                <div class="column is-5">
-                </div>
-                <div class="column is-2">
-                  <p class="has-text-weight-bold">%
-                  </p>
-                </div>
+            <div *ngIf="probabilities && probabilities.length > 0">
+              <div *ngIf="probabilities[img_ind].length === 0" class="notification">
+                Pas de prédictions.
               </div>
-              <div class="columns is-mobile" *ngFor="let prob of probability.prob; let i = index">
-                <div class="column is-5">
-                  {{ probability.pred[i] }}
-                </div>
-                <div class="column is-5">
-                  <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
-                </div>
-                <div class="column is-2">
-                  {{ probability.prob[i] * 100 | number : '1.2' }}
-                </div>
+              <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
+                  <table class="table is-hoverable">
+                    <thead>
+                      <tr>
+                        <th>Marque/Modele</th>
+                        <th></th>
+                        <th>%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let prob of probability.prob; let i = index"  [class.is-selected]="probability.prob[i] > 0.9">
+                        <td>{{ probability.pred[i] }}</td>
+                        <td>
+                          <progress [ngClass]="colors[predNum]" class="progress" [attr.value]="probability.prob[i] < 0.9 ? probability.prob[i] * 100 : null" max="100"></progress>
+                        </td>
+                        <td>
+                          {{ probability.prob[i] * 100 | number : '1.2' }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
               </div>
             </div>
           </div>
