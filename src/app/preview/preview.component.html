@@ -121,7 +121,7 @@
             {{ this.progress_message }}
           </a>
         </p>
-        <p class="control">
+        <p class="control" *ngIf="progress < 100">
           <a class="button is-light">
             {{ this.progress }}%
           </a>
@@ -164,7 +164,7 @@
                           <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
                         </td>
                         <td>
-                          {{ probability.prob[i] * 100 | number : '1.2' }}
+                          {{ probability.prob[i] * 100 | number : '1.0-1' }}
                         </td>
                       </tr>
                     </tbody>

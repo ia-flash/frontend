@@ -131,6 +131,7 @@ export class PreviewComponent implements OnInit {
   drawDetection() {
     this.loading = true;
     const formData = this.addAttachementsToForm();
+    const startTime = new Date();
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
@@ -149,10 +150,13 @@ export class PreviewComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.loading = false;
-            this.progress_message = "Done !";
+            const endTime = new Date();
+            let timeDiff = + endTime - (+startTime);
+            timeDiff /= 1000;
+            this.progress_message = `Fait dans ${timeDiff.toFixed(1)} seconds`;
             setTimeout(()=>{
               this.progress = null;
-            }, 1000);
+            }, 3000);
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", event.body.length);
               this.renderPredictions(event.body);
@@ -174,10 +178,8 @@ export class PreviewComponent implements OnInit {
 
   drawPrediction() {
     this.loading = true;
-
-    // Append attachements
     const formData = this.addAttachementsToForm();
-
+    const startTime = new Date();
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
@@ -196,10 +198,13 @@ export class PreviewComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.loading = false;
-            this.progress_message = "Done !";
+            const endTime = new Date();
+            let timeDiff = + endTime - (+startTime);
+            timeDiff /= 1000;
+            this.progress_message = `Fait dans ${timeDiff.toFixed(1)} seconds`;
             setTimeout(()=>{
               this.progress = null;
-            }, 1000);
+            }, 3000);
             this.probabilities = event.body;
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", event.body.length);
