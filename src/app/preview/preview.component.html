@@ -161,7 +161,7 @@
                       <tr *ngFor="let prob of probability.prob; let i = index"  [class.is-selected]="probability.prob[i] > 0.9">
                         <td>{{ probability.pred[i] }}</td>
                         <td>
-                          <progress [ngClass]="colors[predNum]" class="progress" [attr.value]="probability.prob[i] < 0.9 ? probability.prob[i] * 100 : null" max="100"></progress>
+                          <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
                         </td>
                         <td>
                           {{ probability.prob[i] * 100 | number : '1.2' }}

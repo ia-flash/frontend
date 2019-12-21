@@ -9,5 +9,9 @@ $primary-invert: $darkblue-invert;
 $navbar-burger-color: $white;
 $navbar-item-img-max-height: 3.0rem;
 
+
+$table-row-active-background-color:  $grey-lighter;
+$table-row-active-color: $grey-darker; 
+
 @import "bulma";
 @import "bulma-slider";
