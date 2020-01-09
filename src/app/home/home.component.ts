@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NguCarouselConfig } from "@ngu/carousel";
+import { PredictionsService } from '../predictions.service';
 
 @Component({
   selector: "app-home",
@@ -8,6 +9,8 @@ import { NguCarouselConfig } from "@ngu/carousel";
 })
 export class HomeComponent implements OnInit {
   burger = false;
+  submitMessage = '';
+  myform = {name: '', _replyto: '', message: '', _subject: ''} 
 
   imgags = [
     {
@@ -136,9 +139,25 @@ export class HomeComponent implements OnInit {
     easing: 'cubic-bezier(0, 0, 0.2, 1)'
   };
 
-  constructor() {}
+  constructor(
+    private predictionService: PredictionsService,
+  ) { }
+
 
   ngOnInit() {}
+
+  onSubmit() { 
+    console.log(this.myform);
+    this.myform._subject = `[iaflash.fr] - Message from ${this.myform.name}`
+    this.predictionService.sendFormsFree(this.myform).subscribe(result => {
+      console.log(result);
+      this.submitMessage = "success"; 
+    },
+      error => {
+        console.log(error);
+        this.submitMessage = "error"; 
+      });
+  }
 
   toggleBurger() {
     this.burger = !this.burger;

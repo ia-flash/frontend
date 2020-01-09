@@ -149,29 +149,44 @@
       </div>
 
       <div class="column is-offset-4 is-4" id="contact">
-        <form action="https://formspree.io/datalab@interieur.gouv.fr" method="POST">
+        <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
           <div class="field">
-            <label class="label title is-4">Nous contacter</label>
+            <label class="label title is-4" for="name">Nous contacter</label>
             <div class="control is-fullwidth">
-              <input class="input" type="text" placeholder="Nom: "  name="name" required>
+              <input [(ngModel)]="myform.name" #name="ngModel" class="input" [class.is-success]="myform.name" type="text" placeholder="Nom: " name="name" required>
             </div>
           </div>
 
           <div class="field">
             <div class="control is-expanded">
-              <input class="input" type="email" placeholder="Email: " name="_replyto" required>
+              <input [(ngModel)]="myform._replyto" #name="ngModel" class="input" [class.is-success]="myform._replyto.indexOf('@') != -1" [class.is-danger]="myform._replyto.length > 0 && myform._replyto.indexOf('@') === -1" type="email" placeholder="Email: " name="_replyto" required>
             </div>
           </div>
 
           <div class="field">
             <div class="control is-expanded">
-              <textarea class="textarea" placeholder="Message: " name="message"></textarea>
+              <textarea [(ngModel)]="myform.message" #name="ngModel" class="textarea" placeholder="Message: " name="message"></textarea>
             </div>
           </div>
 
           <div class="field is-grouped is-grouped-centered">
             <div class="control">
-              <input class="button is-primary" type="submit">
+              <input class="button is-primary" type="submit" [disabled]="(!heroForm.form.valid || myform._replyto.indexOf('@') === -1) || submitMessage">
+            </div>
+            <div class="control" *ngIf="myform._replyto.length > 0 && myform._replyto.indexOf('@') === -1">
+              <p class="help is-danger">
+                Mauvaise adresse mail
+              </p>
+            </div>
+            <div class="control" *ngIf="submitMessage =='success'">
+              <p class="help is-success">
+                Merci
+              </p>
+            </div>
+            <div class="control" *ngIf="submitMessage =='error'">
+              <p class="help is-danger">
+                Il y a eu un erreur
+              </p>
             </div>
           </div>
 

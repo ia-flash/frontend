@@ -58,6 +58,10 @@ export class PredictionsService {
       reportProgress: true
     });
     return this.http.request(req);
-
   }
+
+  sendFormsFree(formData) {
+    return this.http.post<any>(`https://formspree.io/${environment.formsFree}`, formData);
+  }
+
 }
