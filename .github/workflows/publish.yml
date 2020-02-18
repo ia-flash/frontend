@@ -23,25 +23,25 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install dependencies
         run: npm install
-      - name: build
-        run: npm run gh-pages
-        env:
-          URL_SIVNORM: ${{ secrets.URL_SIVNORM }}
-          URL_MATCHVEC: ${{ secrets.URL_MATCHVEC }}
-          FORMSFREE: ${{ secrets.FORMSFREE }}
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v2.4.0
-        if: success()
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./dist
-      - name: build
+      - name: build for build branch
         run: npm run build
-      - name: deploy
+      - name: deploy on builds branch
         uses: peaceiris/actions-gh-pages@v2.4.0
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: builds
+          PUBLISH_DIR: ./dist
+      - name: build for github pages
+        run: npm run gh-pages
+        env:
+          URL_SIVNORM: ${{ secrets.URL_SIVNORM }}
+          URL_MATCHVEC: ${{ secrets.URL_MATCHVEC }}
+          FORMSFREE: ${{ secrets.FORMSFREE }}
+      - name: deploy on github pages
+        uses: peaceiris/actions-gh-pages@v2.4.0
+        if: success()
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist

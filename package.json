@@ -6,7 +6,7 @@
     "start": "ng serve",
     "config": "./node_modules/.bin/ts-node set-env.ts",
     "watch": "ng build --output-path ./dist --watch",
-    "build": "npm run config && ng build --aot --prod --output-path ./dist",
+    "build": "ng build --aot --prod --output-path ./dist",
     "gh-pages": "npm run config && ng build --aot --prod --output-path ./dist --base-href 'https://iaflash.fr/' --deploy-url 'https://iaflash.fr/' && cp dist/index.html dist/404.html && echo 'iaflash.fr' | tee dist/CNAME",
     "s3": "npm run build && aws s3 cp dist/ s3://cpu.iaflash.fr --recursive",
     "test": "ng test",

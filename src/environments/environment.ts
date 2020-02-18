@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiMatchvec: null,
   apiSivnorm: null,
+  formsFree: null,
   gpu: false
 };
 
