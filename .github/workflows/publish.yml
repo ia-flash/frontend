@@ -25,6 +25,11 @@ jobs:
         run: npm install
       - name: build for build branch
         run: npm run build
+      - name: Upload dist folder as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
       - name: deploy on builds branch
         uses: peaceiris/actions-gh-pages@v2.4.0
         if: success()
