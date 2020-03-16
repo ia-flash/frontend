@@ -153,7 +153,7 @@ export class PreviewComponent implements OnInit {
             const endTime = new Date();
             let timeDiff = + endTime - (+startTime);
             timeDiff /= 1000;
-            this.progress_message = `Fait dans ${timeDiff.toFixed(1)} seconds`;
+            this.progress_message = `Fait au bout de ${timeDiff.toFixed(1)} secondes`;
             setTimeout(()=>{
               this.progress = null;
             }, 3000);
@@ -201,7 +201,7 @@ export class PreviewComponent implements OnInit {
             const endTime = new Date();
             let timeDiff = + endTime - (+startTime);
             timeDiff /= 1000;
-            this.progress_message = `Fait dans ${timeDiff.toFixed(1)} seconds`;
+            this.progress_message = `Fait au bout de ${timeDiff.toFixed(1)} secondes`;
             setTimeout(()=>{
               this.progress = null;
             }, 3000);
