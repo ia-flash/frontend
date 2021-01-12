@@ -26,6 +26,7 @@ export class PreviewComponent implements OnInit {
   selectedTab: string;
   burger = false;
   gpu = environment.gpu;
+  clasif_key: string;
 
   constructor(
     private predictionService: PredictionsService,
@@ -159,7 +160,7 @@ export class PreviewComponent implements OnInit {
             }, 3000);
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", event.body.length);
-              this.renderPredictions(event.body);
+              this.renderPredictions(event.body, "");
             } else {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 0);
               this.invalidUrl = 'No image ?';
@@ -176,8 +177,9 @@ export class PreviewComponent implements OnInit {
   }
 
 
-  drawPrediction() {
+  drawPrediction(key) {
     this.loading = true;
+    this.clasif_key = key
     const formData = this.addAttachementsToForm();
     const startTime = new Date();
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
@@ -205,10 +207,11 @@ export class PreviewComponent implements OnInit {
             setTimeout(()=>{
               this.progress = null;
             }, 3000);
+            console.log(event.body)
             this.probabilities = event.body;
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", event.body.length);
-              this.renderPredictions(event.body);
+              this.renderPredictions(event.body, key);
             } else {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 0);
               this.invalidUrl = 'No image ?';
@@ -269,7 +272,8 @@ export class PreviewComponent implements OnInit {
     });
   }
 
-  renderPredictions = (predictions) => {
+  renderPredictions = (predictions, key) => {
+    console.log(key);
     predictions.forEach((predictionsImage, index) => {
       console.log('Predictions', predictionsImage);
       const canvas = document.getElementById(`canvas${this.image_url ? index : index + 1}`) as HTMLCanvasElement;
@@ -306,13 +310,13 @@ export class PreviewComponent implements OnInit {
         ctx.strokeRect(x, y, width, height);
         // Draw the label background.
         ctx.fillStyle = this.colorsHX[predictionIndex]; // "#00FFFF";
-        const textWidth = ctx.measureText(prediction.label).width;
+        const textWidth = ctx.measureText(prediction[key].label).width;
         const textHeight = parseInt(font, 10); // base 10
         ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
 
         // Draw the text last to ensure it's on top.
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(prediction.label, x, y);
+        ctx.fillText(prediction[key].label, x, y);
       });
     });
   }

@@ -101,7 +101,10 @@
           <button (click)="drawDetection()" class="button is-info"  [class.is-loading]="loading">Détection d'objets</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction()" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
+          <button (click)="drawPrediction('brand_model_classif')" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
+        </div>
+        <div class="level-item">
+          <button (click)="drawPrediction('prio_classif')" class="button is-link" [class.is-loading]="loading">Véhicule prioritaire</button>
         </div>
         <div class="level-item" *ngIf="gpu">
           <button (click)="drawAnonymisation()" class="button is-primary" [class.is-loading]="loading">Anonymisation</button>
@@ -138,7 +141,7 @@
           <div class="column is-4">
             <div>
               <p class="title is-size-5">
-                {{ currentInput[key].name }} 
+                {{ currentInput[key].name }}
               </p>
               <p *ngIf="currentInput[key].size" class="subtitle is-size-7">
                 {{ currentInput[key].size | number : '1.2-2' }} Mb
@@ -152,19 +155,19 @@
                   <table class="table is-hoverable is-fullwidth">
                     <thead>
                       <tr>
-                        <th class="is-4">Marque/Modele</th>
+                        <th class="is-4">{{clasif_key}}</th>
                         <th class="is-7"></th>
                         <th class="is-1">%</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let prob of probability.prob; let i = index"  [class.is-selected]="probability.prob[i] > 0.9">
-                        <td>{{ probability.pred[i] }}</td>
+                      <tr *ngFor="let prob of probability[clasif_key].prob; let i = index"  [class.is-selected]="probability[clasif_key].prob[i] > 0.9">
+                        <td>{{ probability[clasif_key].pred[i] }}</td>
                         <td>
-                          <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability.prob[i] * 100 }}" max="100"></progress>
+                          <progress [ngClass]="colors[predNum]" class="progress" value="{{ probability[clasif_key].prob[i] * 100 }}" max="100"></progress>
                         </td>
                         <td>
-                          {{ probability.prob[i] * 100 | number : '1.0-1' }}
+                          {{ probability[clasif_key].prob[i] * 100 | number : '1.0-1' }}
                         </td>
                       </tr>
                     </tbody>
