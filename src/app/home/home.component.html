@@ -1,35 +1,74 @@
-<section class="hero is-primary is-medium">
-  <!-- Hero head: will stick at the top -->
-  <div class="hero-head">
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            <img src="assets/logo-ia-flash.png" alt="Logo IA Flash">
-          </a>
-          <a class="navbar-item" routerLink="testapi/matchvec">
-            Tester notre API
-          </a>
-          <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
-            <span></span>
-            <span></span>
-            <span></span>
+<header class="rf-header">
+  <div class="rf-container rf-container__header">
+    <div class="rf-header__body">
+      <div
+        class="rf-header__brand"
+        >
+        <a
+          routerLink="/"
+          class="rf-logo"
+          title="IA Flash"
+          >
+          <span class="rf-logo__title">république
+            <br>française</span>
+        </a>
+      </div>
+      <img
+        src="assets/logo-ia-flash.png"
+        alt="Logo IA Flash"
+        height="50px"
+        width="50px"
+        />
+      <div class="rf-header__navbar">
+        <div class="rf-service">
+          <span class="rf-service__title" title="matchID - moteur de recherche des personnes décédées">
+            IA Flash
           </span>
-        </div>
-        <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
-          <div class="navbar-end">
-            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Découvrir le projet IA Flash</a>
-            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Code source</a>
-          </div>
+          <p class="rf-service__tagline">
+            Détection <strong>de la marque et du modèle</strong> de véhicules
+          </p>
         </div>
       </div>
-    </nav>
-  </div>
+      <div class="rf-header__tools">
+        <div class="rf-shortcuts" role="navigation" aria-label="Menu principal">
+                    <ul class="rf-nav__list">
+                        <li
+                            class="rf-nav__item rf-nav__item--hoverable rf-nav__item--shadow"
+                        >
+                            <a
+                              href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" 
+                              target="_blank"
+                              class="rf-link rf-href rf-fi-db-line rf-link--icon-left"
+                              aria-controls="rf-recherche"
+                            >
+                                Découvrir le projet
+                            </a>
+                        </li>
+                        <li
+                            class="rf-nav__item"
+                        >
+                            <a
+                              href="https://github.com/ia-flash"
+                              target="_blank"
+                              class="rf-link rf-href rf-fi-db-line rf-link--icon-left"
+                              aria-controls="rf-recherche"
+                            >
+                                Code source
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+<section class="hero is-primary is-medium">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title is-size-1">IA Flash</h1>
       <h2 class="subtitle is-size-3">Détection de la marque et du modèle de véhicules</h2>
-      <a class="button is-rounded is-size-5" routerLink="testapi/matchvec">Tester notre API</a>
+      <a class="rf-btn rf-btn--lg" routerLink="testapi/matchvec">Tester notre API</a>
     </div>
   </div>
 </section>
@@ -54,30 +93,18 @@
     <h3 class="title">Ils parlent de nous</h3>
     <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="imgags">
       <ngu-tile *nguCarouselDef="let item; let i = index">
-        <div class="card">
-          <div class="card-content">
-            <p class="is-size-5 is-italic">
+        <div class="rf-card">
+          <div class="rf-card__body">
+            <p class="rf-card__desc">
               {{ item.citation }}
             </p>
-            <br>
-            <p class="subtitle">
-              {{ item.author }}
-            </p>
+            <span>
+              <p class="rf-card__detail">{{ item.date }}</p>
+              <img width="100px" height="40px" src="{{ item.img }}" alt="{{ item.site }}">
+              <p class="rf-card__detail">{{ item.author }}</p>
+            </span>
+            <a href="{{ item.URL }}" target="_blank" class="rf-card__link"></a>
           </div>
-          <footer class="card-footer">
-            <p class="card-footer-item">
-              <figure class="image is-16x128">
-                <a href="{{ item.URL }}" target="_blank">
-                  <img src="{{ item.img }}" alt="{{ item.site }}">
-                </a>
-              </figure>
-            </p>
-            <p class="card-footer-item">
-              <span>
-                {{ item.date }}
-              </span>
-            </p>
-          </footer>
         </div>
       </ngu-tile>
       <div class="myPoint" NguCarouselPoint>
@@ -197,22 +224,34 @@
   </div>
 </section>
 
-
-<footer class="footer">
-  <div class="container">
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-          <ul>
-            <li><a routerLink="/">Presentation</a></li>
-            <li><a routerLink="/testapi/matchvec">IAFlash</a></li>
-            <li><a routerLink="/testapi/sivnorm">SivNorm</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="level-item has-text-centered">
-        <img src="assets/logo_administration.png" alt="logo ministere de l'intérieur, ANTAI et DNUM" alt="logo ministere de l'intérieur" width="300px" height="150px">
-      </div>
-    </nav>
-  </div>
+<footer class="rf-footer" role="contentinfo" id="footer">
+    <div class="rf-container">
+        <div class="rf-footer__body">
+            <div class="rf-footer__brand">
+                <a class="rf-logo" routerLink="/" title="république française">
+                  <span class="rf-logo__title">république
+                    <br>française</span>
+                </a>
+            </div>
+            <div class="rf-footer__content">
+              <img src="assets/logo_administration.png" alt="logo ministere de l'intérieur, ANTAI et DNUM" alt="logo ministere de l'intérieur" width="300px" height="150px">
+            </div>
+        </div>
+        <div class="rf-footer__bottom">
+            <ul class="rf-footer__bottom-list">
+                <li class="rf-footer__bottom-item">
+                    <a class="rf-footer__bottom-link"  routerLink="/">Presentation IA Flash</a>
+                </li>
+                <li class="rf-footer__bottom-item">
+                    <a class="rf-footer__bottom-link" routerLink="/testapi/matchvec">API IA Flash</a>
+                </li>
+                <li class="rf-footer__bottom-item">
+                    <a class="rf-footer__bottom-link" routerLink="/testapi/sivnorm">API Sivnorm</a>
+                </li>
+            </ul>
+            <div class="rf-footer__bottom-copy">
+                © République Française 2021
+            </div>
+        </div>
+    </div>
 </footer>
