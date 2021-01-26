@@ -29,7 +29,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bulma/css/bulma.min.css",
+              "node_modules/@gouvfr/all/dist/css/all.min.css",
               "src/styles.scss"
             ],
             "scripts": [

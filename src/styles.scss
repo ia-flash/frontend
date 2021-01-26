@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bulma/sass/utilities/initial-variables";
 
-$darkblue: #253e7c; 
+$darkblue: #000091; 
 $darkblue-invert: #ffffff;
 
 $primary: $darkblue;
@@ -12,6 +12,8 @@ $navbar-item-img-max-height: 3.0rem;
 
 $table-row-active-background-color:  $grey-lighter;
 $table-row-active-color: $grey-darker; 
+
+$family-sans-serif: "Marianne", sans-serif;
 
 @import "bulma";
 @import "bulma-slider";
