@@ -146,5 +146,8 @@
       }
     }
   },
-  "defaultProject": "iaflash"
+  "defaultProject": "iaflash",
+  "cli": {
+    "analytics": "37943a98-7ba2-42ac-b9a9-33e7064fa110"
+  }
 }

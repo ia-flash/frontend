@@ -1,0 +1,10 @@
+{
+  "/matchvec/*": {
+    "target": "http://localhost:5000/matchvec",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/matchvec": ""
+    }
+  }
+}
