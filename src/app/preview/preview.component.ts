@@ -160,7 +160,7 @@ export class PreviewComponent implements OnInit {
             }, 3000);
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", event.body.length);
-              this.renderPredictions(event.body, "");
+              this.renderPredictions(event.body, undefined);
             } else {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 0);
               this.invalidUrl = 'No image ?';
@@ -273,7 +273,6 @@ export class PreviewComponent implements OnInit {
   }
 
   renderPredictions = (predictions, key) => {
-    console.log(key);
     predictions.forEach((predictionsImage, index) => {
       console.log('Predictions', predictionsImage);
       const canvas = document.getElementById(`canvas${this.image_url ? index : index + 1}`) as HTMLCanvasElement;
@@ -310,13 +309,14 @@ export class PreviewComponent implements OnInit {
         ctx.strokeRect(x, y, width, height);
         // Draw the label background.
         ctx.fillStyle = this.colorsHX[predictionIndex]; // "#00FFFF";
-        const textWidth = ctx.measureText(prediction[key].label).width;
+        const label = `${key ? prediction[key].pred[0] : prediction.class_name}: ${key ? Math.round(prediction[key].prob[0] * 100)  : Math.round(prediction.confidence * 100)}%` 
+        const textWidth = ctx.measureText(label).width;
         const textHeight = parseInt(font, 10); // base 10
         ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
 
         // Draw the text last to ensure it's on top.
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(prediction[key].label, x, y);
+        ctx.fillText(label, x, y + 2);
       });
     });
   }
