@@ -1,77 +1,60 @@
-<header class="rf-header">
-  <div class="rf-container rf-container__header">
-    <div class="rf-header__body">
-      <div
-        class="rf-header__brand"
-        >
-        <a
-          routerLink="/"
-          class="rf-logo"
-          title="IA Flash"
-          >
-          <span class="rf-logo__title">république
-            <br>française</span>
-        </a>
-      </div>
-      <img
-        src="assets/logo-ia-flash.png"
-        alt="Logo IA Flash"
-        height="50px"
-        width="50px"
-        />
-      <div class="rf-header__navbar">
-        <div class="rf-service">
-          <span class="rf-service__title" title="matchID - moteur de recherche des personnes décédées">
-            IA Flash
-          </span>
-          <p class="rf-service__tagline">
-            Détection <strong>de la marque et du modèle</strong> de véhicules
-          </p>
-        </div>
-      </div>
-      <div class="rf-header__tools">
-        <div class="rf-shortcuts" role="navigation" aria-label="Menu principal">
-                    <ul class="rf-nav__list">
-                        <li
-                            class="rf-nav__item rf-nav__item--hoverable rf-nav__item--shadow"
-                        >
-                            <a
-                              href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" 
-                              target="_blank"
-                              class="rf-link rf-href rf-fi-db-line rf-link--icon-left"
-                              aria-controls="rf-recherche"
-                            >
-                                Découvrir le projet
-                            </a>
-                        </li>
-                        <li
-                            class="rf-nav__item"
-                        >
-                            <a
-                              href="https://github.com/ia-flash"
-                              target="_blank"
-                              class="rf-link rf-href rf-fi-db-line rf-link--icon-left"
-                              aria-controls="rf-recherche"
-                            >
-                                Code source
-                            </a>
-                        </li>
-                    </ul>
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                République
+                                <br>Française
+                            </p>
+                        </div>
+                        <div class="fr-header__operator">
+                            <img src="assets/logo-ia-flash.png" class="fr-responsive-img" style="max-width:4.0625rem;" alt="logo IA Flash" />
+                        </div>
+                        <div class="fr-header__navbar">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-870" aria-haspopup="menu" title="Menu">
+                                Menu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a routerLink="/" title="IA Flash">
+                            <p class="fr-header__service-title">IA Flash</p>
+                        </a>
+                        <p class="fr-header__service-tagline">Détection de la marque et du modèle de véhicules</p>
+                    </div>
                 </div>
+                <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                        <ul class="fr-links-group">
+                            <li>
+                                <a class="fr-link fr-fi-play-line" routerLink="testapi/matchvec">Tester notre API</a>
+                            </li>
+                            <li>
+                                <a class="fr-link" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" 
+                                  >Découvrir le projet</a>
+                            </li>
+                            <li>
+                                <a class="fr-link" href="https://github.com/ia-flash">Code source</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
+    <div class="fr-header__menu fr-modal" id="modal-870" aria-labelledby="button-871">
+        <div class="fr-container">
+            <button class="fr-link--close fr-link" aria-controls="modal-870">Fermer</button>
+            <div class="fr-header__menu-links"></div>
+            <nav class="fr-nav" id="navigation-869" role="navigation" aria-label="Menu principal">
+            </nav>
+        </div>
     </div>
 </header>
 
-<section class="hero is-primary is-medium">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title is-size-1">IA Flash</h1>
-      <h2 class="subtitle is-size-3">Détection de la marque et du modèle de véhicules</h2>
-      <a class="rf-btn rf-btn--lg" routerLink="testapi/matchvec">Tester notre API</a>
-    </div>
-  </div>
-</section>
 
 <section class="section">
   <div class="container">
@@ -81,8 +64,11 @@
         <p>
           Nous avons conçu une brique d'intelligence artificielle pour détecter un véhicule, sa marque et son modèle dans une photo et une vidéo.
         </p>
-        <br>
-        <iframe appWatch class="responsive-iframe" title="Vidéo présentation IA Flash" frameborder="0" src="https://www.dailymotion.com/embed/video/x7okqx3" allowfullscreen allow="autoplay"></iframe>
+        <div class="fr-content-media fr-content-media--sm">
+            <div class="fr-responsive-vid">
+                <iframe title="titre de l’iframe" class="fr-responsive-vid__player" src="https://www.dailymotion.com/embed/video/x7okqx3" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -93,17 +79,17 @@
     <h3 class="title">Ils parlent de nous</h3>
     <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="imgags">
       <ngu-tile *nguCarouselDef="let item; let i = index">
-        <div class="rf-card">
-          <div class="rf-card__body">
-            <p class="rf-card__desc">
+        <div class="fr-card">
+          <div class="fr-card__body">
+            <p class="fr-card__desc">
               {{ item.citation }}
             </p>
             <span>
-              <p class="rf-card__detail">{{ item.date }}</p>
+              <p class="fr-card__detail">{{ item.date }}</p>
               <img width="100px" height="40px" src="{{ item.img }}" alt="{{ item.site }}">
-              <p class="rf-card__detail">{{ item.author }}</p>
+              <p class="fr-card__detail">{{ item.author }}</p>
             </span>
-            <a href="{{ item.URL }}" target="_blank" class="rf-card__link"></a>
+            <a href="{{ item.URL }}" target="_blank" class="fr-card__link"></a>
           </div>
         </div>
       </ngu-tile>
@@ -198,7 +184,7 @@
 
           <div class="field is-grouped is-grouped-centered">
             <div class="control">
-              <input class="button is-primary" type="submit" [disabled]="(!heroForm.form.valid || myform._replyto.indexOf('@') === -1) || submitMessage">
+              <input class="fr-btn" type="submit" [disabled]="(!heroForm.form.valid || myform._replyto.indexOf('@') === -1) || submitMessage">
             </div>
             <div class="control" *ngIf="myform._replyto.length > 0 && myform._replyto.indexOf('@') === -1">
               <p class="help is-danger">
@@ -224,33 +210,34 @@
   </div>
 </section>
 
-<footer class="rf-footer" role="contentinfo" id="footer">
-    <div class="rf-container">
-        <div class="rf-footer__body">
-            <div class="rf-footer__brand">
-                <a class="rf-logo" routerLink="/" title="république française">
-                  <span class="rf-logo__title">république
+<footer class="fr-footer" role="contentinfo" id="footer">
+    <div class="fr-container">
+        <div class="fr-footer__body">
+            <div class="fr-footer__brand">
+                <a class="fr-logo" routerLink="/" title="république française">
+                  <span class="fr-logo__title">république
                     <br>française</span>
                 </a>
             </div>
-            <div class="rf-footer__content">
+            <div class="fr-footer__content">
               <img src="assets/logo_administration.png" alt="logo ministere de l'intérieur, ANTAI et DNUM" alt="logo ministere de l'intérieur" width="300px" height="150px">
             </div>
         </div>
-        <div class="rf-footer__bottom">
-            <ul class="rf-footer__bottom-list">
-                <li class="rf-footer__bottom-item">
-                    <a class="rf-footer__bottom-link"  routerLink="/">Presentation IA Flash</a>
+        <div class="fr-footer__bottom">
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link"  routerLink="/">Presentation IA Flash</a>
                 </li>
-                <li class="rf-footer__bottom-item">
-                    <a class="rf-footer__bottom-link" routerLink="/testapi/matchvec">API IA Flash</a>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" routerLink="/testapi/matchvec">API IA Flash</a>
                 </li>
-                <li class="rf-footer__bottom-item">
-                    <a class="rf-footer__bottom-link" routerLink="/testapi/sivnorm">API Sivnorm</a>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" routerLink="/testapi/sivnorm">API Sivnorm</a>
                 </li>
             </ul>
-            <div class="rf-footer__bottom-copy">
-                © République Française 2021
+            <div class="fr-footer__bottom-copy">
+              <p>Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+              </p>
             </div>
         </div>
     </div>

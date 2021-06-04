@@ -1,68 +1,72 @@
-<section class="hero is-primary">
-  <!-- Hero head: will stick at the top -->
-  <div class="hero-head">
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" routerLink="">
-            <img src="assets/logo-ia-flash.png" alt="Logo">
-          </a>
-          <a class="navbar-item">
-            Tester notre API
-          </a>
-          <span class="navbar-burger burger" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()"  data-target="navbarMenuHeroA">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                République
+                                <br>Française
+                            </p>
+                        </div>
+                        <div class="fr-header__operator">
+                            <img src="assets/logo-ia-flash.png" class="fr-responsive-img" style="max-width:4.0625rem;" alt="logo IA Flash" />
+                        </div>
+                        <div class="fr-header__navbar">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-870" aria-haspopup="menu" title="Menu">
+                                Menu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a routerLink="/" title="IA Flash">
+                            <p class="fr-header__service-title">API IA Flash</p>
+                        </a>
+                        <p class="fr-header__service-tagline">Détection de la marque et du modèle de véhicules</p>
+                    </div>
+                </div>
+                <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                        <ul class="fr-links-group">
+                            <li>
+                                <a class="fr-link" href="https://github.com/ia-flash/matchvec" target="_blank"
+                                  >Code</a>
+                            </li>
+                            <li *ngIf="gpu">
+                                <a class="fr-link" href="/matchvec/swagger" target="_blank"
+                                  >Swagger</a>
+                            </li>
+                            <li>
+                                <a class="fr-link" href="https://ia-flash.github.io/matchvec" target="_blank" >Documentation technique</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="navbarMenuHeroA" class="navbar-menu" [ngClass]="{ 'is-active' : burger }" (click)="toggleBurger()">
-          <div class="navbar-end">
-            <a class="navbar-item" href="https://entrepreneur-interet-general.etalab.gouv.fr/defis/2019/iaflash.html" target="_blank">Découvrir le projet IA Flash</a>
-            <a class="navbar-item" href="https://github.com/ia-flash" target="_blank">Code source</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">IA Flash</h1>
-      <h2 class="subtitle">Détection de la marque et du modèle de véhicules</h2>
-
-      <nav class="level">
-        <div class="level-item">
-        </div>
-        <div class="level-item">
-        </div>
-        <div class="level-item">
-          <a class="button is-rounded" href="https://github.com/ia-flash/matchvec">Code</a>
-        </div>
-        <div class="level-item" *ngIf="gpu">
-          <a class="button is-rounded is-info" href="/matchvec/swagger">Swagger</a>
-        </div>
-        <div class="level-item">
-          <a class="button is-rounded is-link" href="https://ia-flash.github.io/matchvec">Documentation technique</a>
-        </div>
-        <div class="level-item">
-        </div>
-        <div class="level-item">
-        </div>
-      </nav>
     </div>
-  </div>
-  <div class="hero-foot">
-    <nav class="tabs is-boxed">
-      <div class="container">
-        <ul>
-          <li [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'"><a>IA Flash</a></li>
-          <li [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'"><a routerLink="/testapi/sivnorm">SivNorm</a></li>
-          <li [ngClass]="{'is-active': selectedTab === 'video'}" (click)="selectedTab = 'video'"><a routerLink="/testapi/video">Video</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</section>
+    <div class="fr-header__menu fr-modal" id="modal-870" aria-labelledby="button-871">
+        <div class="fr-container">
+            <button class="fr-link--close fr-link" aria-controls="modal-870">Fermer</button>
+            <div class="fr-header__menu-links"></div>
+            <nav class="fr-nav" id="navigation-869" role="navigation" aria-label="Menu principal">
+              <ul class="fr-nav__list">
+                <li class="fr-nav__item" [ngClass]="{'is-active': selectedTab === 'preview'}" (click)="selectedTab = 'preview'">
+                  <a class="fr-nav__link" routerLink="/testapi/matchvec" target="_self">API IA Flash</a>
+                </li>
+                <li class="fr-nav__item" [ngClass]="{'is-active': selectedTab === 'sivnorm'}" (click)="selectedTab = 'sivnorm'">
+                  <a class="fr-nav__link"  routerLink="/testapi/sivnorm" target="_self">SivNorm</a>
+                </li>
+                <li class="fr-nav__item" [ngClass]="{'is-active': selectedTab === 'video'}" (click)="selectedTab = 'video'">
+                  <a class="fr-nav__link" routerLink="/testapi/video" target="_self">Video</a>
+                </li>
+              </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
 
 <section class="section">
   <div class="container">
@@ -98,16 +102,16 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="drawDetection()" class="button is-info"  [class.is-loading]="loading">Détection d'objets</button>
+          <button (click)="drawDetection()" class="fr-btn fr-btn--secondary" [class.is-loading]="loading">Détection d'objets</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction('brand_model_classif')" class="button is-link" [class.is-loading]="loading">Classification Marque Modèle</button>
+          <button (click)="drawPrediction('brand_model_classif')" class="fr-btn" [class.is-loading]="loading">Classification Marque Modèle</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction('prio_classif')" class="button is-link" [class.is-loading]="loading">Véhicule prioritaire</button>
+          <button (click)="drawPrediction('prio_classif')" class="fr-btn  fr-btn--secondary" [class.is-loading]="loading">Véhicule prioritaire</button>
         </div>
         <div class="level-item" *ngIf="gpu">
-          <button (click)="drawAnonymisation()" class="button is-primary" [class.is-loading]="loading">Anonymisation</button>
+          <button (click)="drawAnonymisation()" class="fr-btn fr-btn--secondary" [class.is-loading]="loading">Anonymisation</button>
         </div>
       </div>
     </nav>
@@ -195,21 +199,35 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-          <ul>
-            <li><a routerLink="/">Presentation</a></li>
-            <li><a routerLink="/testapi/matchvec">IAFlash</a></li>
-            <li><a routerLink="/testapi/sivnorm">SivNorm</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="level-item has-text-centered">
-        <img src="assets/logo_administration.png" alt="logo ministere de l'intérieur, ANTAI et DNUM" alt="logo ministere de l'intérieur" width="300px" height="150px">
-      </div>
-    </nav>
-  </div>
+<footer class="fr-footer" role="contentinfo" id="footer">
+    <div class="fr-container">
+        <div class="fr-footer__body">
+            <div class="fr-footer__brand">
+                <a class="fr-logo" routerLink="/" title="république française">
+                  <span class="fr-logo__title">république
+                    <br>française</span>
+                </a>
+            </div>
+            <div class="fr-footer__content">
+              <img src="assets/logo_administration.png" alt="logo ministere de l'intérieur, ANTAI et DNUM" alt="logo ministere de l'intérieur" width="300px" height="150px">
+            </div>
+        </div>
+        <div class="fr-footer__bottom">
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link"  routerLink="/">Presentation IA Flash</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" routerLink="/testapi/matchvec">API IA Flash</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" routerLink="/testapi/sivnorm">API Sivnorm</a>
+                </li>
+            </ul>
+            <div class="fr-footer__bottom-copy">
+              <p>Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+              </p>
+            </div>
+        </div>
+    </div>
 </footer>

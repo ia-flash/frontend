@@ -29,10 +29,12 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@gouvfr/all/dist/css/all.min.css",
+              "node_modules/@gouvfr/dsfr/dist/css/dsfr.min.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/@gouvfr/dsfr/dist/js/dsfr.module.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": []
             },
