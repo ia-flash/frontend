@@ -1,19 +1,4 @@
-.responsive-iframe {
-  width: 720px; 
-  height: 400px; 
-}
-
 .point-number {
     margin-left:5px;
     margin-right:5px;
-}
-
-@media (max-width: 767px) {
-    .responsive-iframe {
-      width: 100%; 
-    }
-    .point-number {
-        margin-left:1px;
-        margin-right:1px;
-    }
 }
