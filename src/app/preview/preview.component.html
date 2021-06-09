@@ -66,55 +66,62 @@
         </div>
     </div>
 </header>
+<section class="section">
+  <div class="container">
+    <div class="fr-tabs">
+      <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+        <li role="presentation">
+          <button (click)="processTab = 1" id="tabpanel-404" class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left" tabindex="{{ processTab == 1 ? '0' : '-1'}}" role="tab" attr.aria-selected="{{ processTab == 1 ? 'true' : 'false'}}" aria-controls="tabpanel-404-panel">Image à traiter</button>
+        </li>
+        <li role="presentation">
+          <button (click)="processTab = 2" id="tabpanel-405" class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left" tabindex="{{ processTab == 2 ? '0' : '-1'}}" role="tab" attr.aria-selected="{{ processTab == 2 ? 'true' : 'false'}}" aria-controls="tabpanel-405-panel">Traitement</button>
+        </li>
+      </ul>
+      <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
+        <p>
+          Sélectionner une image ou plusieurs images:
+        </p>
+        <br>
+        <p>Utiliser le bouton "Choisir un fichier" pour prendre des images sur l'ordinateur
+        </p>
+        <br>
+          <input (change)="onFileSelected($event.target.files)" class="fr-btn" type="file" name="image" id="file" accept=".jpg, .jpeg, .png" multiple>
+        <br>
+        <br>
+        <div class="fr-input-group" [class.fr-input--error]="invalidUrl">
+          <label class="fr-label" for="text-input-hint">Utiliser la case suivante pour écrire l'URL d'une image sur internet:
+            <span class="fr-hint-text" *ngIf="image_url.length === 0">Saisissez une url valide, commençant par https://</span>
+          </label>
+          <input (change)="onInputUrlChange()" [class.fr-input--error]="invalidUrl" [(ngModel)]="image_url" class="fr-input" type="text" placeholder="https://" id="text-input-hint" name="text-input-hint" aria-describedby="text-input-error-desc-error" >
+            <p id="text-input-error-desc-error" class="fr-error-text" *ngIf="invalidUrl">
+              {{ invalidUrl }}
+            </p>
+        </div>
+      </div>
+      <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0">
 
+        <ul class="fr-btns-group">
+          <li>
+            <button (click)="drawDetection()" class="fr-btn fr-btn--secondary" [disabled]="loading">Détection d'objets</button>
+          </li>
+          <li>
+            <button (click)="drawPrediction('brand_model_classif')" class="fr-btn" [disabled]="loading">Classification Marque Modèle</button>
+          </li>
+          <li>
+            <button (click)="drawPrediction('prio_classif')" class="fr-btn  fr-btn--secondary" [disabled]="loading">Véhicule prioritaire</button>
+          </li>
+          <li>
+            <button (click)="drawAnonymisation()" class="fr-btn" [disabled]="loading">Anonymisation</button>
+          </li>
+        </ul>
+
+      </div>
+    </div> 
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
-    <nav class="level">
-      <!-- Left side -->
-      <div class="level-left">
-        <div class="level-item">
-          <div class="field file has-name">
-            <label class="file-label">
-              <input (change)="onFileSelected($event.target.files)" class="file-input" type="file" name="image" id="file" accept=".jpg, .jpeg, .png" multiple>
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                  Choisir une image
-                </span>
-              </span>
-              <span *ngIf="objectKeys(currentInput).length > 0" class="file-name" id="filename">{{ objectKeys(currentInput).length }} images</span>
-            </label>
-          </div>
-        </div>
-        <div class="level-item">
-          <input (change)="onInputUrlChange()" [class.is-danger]="invalidUrl" [(ngModel)]="image_url" class="input" type="text" placeholder="URL de voiture">
-        </div>
-        <div class="level-item" *ngIf="invalidUrl">
-          <p class="help is-danger">
-            {{ invalidUrl }}
-          </p>
-        </div>
-      </div>
-
-      <!-- Right side -->
-      <div class="level-right">
-        <div class="level-item">
-          <button (click)="drawDetection()" class="fr-btn fr-btn--secondary" [disabled]="loading">Détection d'objets</button>
-        </div>
-        <div class="level-item">
-          <button (click)="drawPrediction('brand_model_classif')" class="fr-btn" [disabled]="loading">Classification Marque Modèle</button>
-        </div>
-        <div class="level-item">
-          <button (click)="drawPrediction('prio_classif')" class="fr-btn  fr-btn--secondary" [disabled]="loading">Véhicule prioritaire</button>
-        </div>
-        <div class="level-item">
-          <button (click)="drawAnonymisation()" class="fr-btn" [disabled]="loading">Anonymisation</button>
-        </div>
-      </div>
-    </nav>
     <div>
       <div class="field has-addons" *ngIf="progress">
         <p class="control is-expanded">
@@ -156,7 +163,7 @@
                 Pas de prédictions.
               </div>
               <div *ngFor="let probability of probabilities[img_ind]; let predNum = index" class="upspace">
-                  <table class="table is-hoverable is-fullwidth">
+                  <table class="fr-table is-hoverable is-fullwidth">
                     <thead>
                       <tr>
                         <th class="is-4">{{clasif_key}}</th>
@@ -183,19 +190,6 @@
       </div>
     </div>
 
-    <h3 class="title">Instructions</h3>
-    <div class="content">
-      <ol type="1">
-        <li>Sélectionner une image ou plusieurs images: </li>
-        <ol type="2">
-          <li>Utiliser le bouton "Choisir un fichier" pour prendre des images sur l'ordinateur</li>
-          <li>Utiliser la case "Url de voiture" pour écrire l'URL d'une image sur internet</li>
-        </ol>
-        <li>Sélectionner le bouton "Détection d'objets" pour détecter le type d'objet sur l'image</li>
-        <li>Sélectionner le bouton "Classification Marque Modèle" pour détecter la marque et modèle des véhicules dans l'image</li>
-        <li *ngIf="gpu">Sélectionner le bouton "Anonymisation" pour flouter les visages et le numéro de la plaque d'immatriculation de la photo</li>
-      </ol>
-    </div>
   </div>
 </section>
 

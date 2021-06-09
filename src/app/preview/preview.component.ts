@@ -24,6 +24,7 @@ export class PreviewComponent implements OnInit {
   colors: string[] = ['is-primary', 'is-danger', 'is-warning',"is-link", "is-info", "is-success"]
   colorsHX: string[] = ['#253e7c', '#DC5379', '#d8ac1c', '#264BEC', "#00BFFF","#17981a"]
   selectedTab: string;
+  processTab: number;
   burger = false;
   gpu = environment.gpu;
   clasif_key: string;
@@ -35,6 +36,7 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.selectedTab = 'preview';
+    this.processTab = 1;
     this.imgCanvas = {};
     this.currentInput = {};
     this.onInputUrlChange();
@@ -48,6 +50,7 @@ export class PreviewComponent implements OnInit {
     if (this.image_url) {
       if (this.image_url.match(/\.(jpeg|jpg|JPG)$/) != null) {
         this.invalidUrl = '';
+        this.processTab = 2;
         this.currentInput[0] = {name: this.image_url, size: null};
         const image = new Image();
         image.src = this.image_url;
@@ -60,7 +63,7 @@ export class PreviewComponent implements OnInit {
           ctx.drawImage(image, 0, 0, image.width, image.height);
         };
       } else {
-        this.invalidUrl = "l'url doit finir en jpg/jpeg";
+        this.invalidUrl = "l'url doit finir en jpg ou jpeg";
       }
     }
   }
@@ -71,6 +74,7 @@ export class PreviewComponent implements OnInit {
     const files: FileList = selectedFiles;
     if (files.length > 0) {
       this.probabilities = null;
+      this.processTab = 2;
       Array.from(files).forEach((file, index) => {
         this.currentInput[index + 1] = {name: file.name, size: (file.size/ 1000000)};
         const reader = new FileReader();
