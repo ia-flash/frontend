@@ -46,7 +46,7 @@ export class PreviewComponent implements OnInit {
 
   onInputUrlChange() {
     if (this.image_url) {
-      if (this.image_url.match(/\.(jpeg|jpg)$/) != null) {
+      if (this.image_url.match(/\.(jpeg|jpg|JPG)$/) != null) {
         this.invalidUrl = '';
         this.currentInput[0] = {name: this.image_url, size: null};
         const image = new Image();
