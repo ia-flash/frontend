@@ -111,38 +111,12 @@ export class PreviewComponent implements OnInit {
 
   drawAnonymisation() {
     this.loading = true;
-    this.progress_message = "🚀 Préparation du serveur";
-    console.log(this.image_url);
-
-    const formData = this.addAttachementsToForm();
-
-    this.predictionService.imageAnonymisation(formData).subscribe(result => {
-      console.log(result);
-      this.loading = false;
-      if (result.length > 0) {
-        this.renderAnonymisation(result);
-      } else {
-        this.invalidUrl = "Nothing to anonymyse";
-      }
-    },
-      error => {
-        this.loading = false;
-        console.log(error);
-        this.invalidUrl = "Error in prediction";
-      });
-
-  }
-
-
-  drawDetection() {
-    this.loading = true;
-    this.progress_message = "🚀 Préparation du serveur";
     const formData = this.addAttachementsToForm();
     const startTime = new Date();
-    this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
+    this.predictionService.imageAnonymisation(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
-            this.progress_message = "Test de connection 📡"
+            this.progress_message = "Préparation du serveur 🚀"
             break;
           case HttpEventType.ResponseHeader:
             this.progress_message = "Bonne connection ✔️"
@@ -163,20 +137,71 @@ export class PreviewComponent implements OnInit {
             this.progress_message = `Fait au bout de ${timeDiff.toFixed(1)} secondes`;
             setTimeout(()=>{
               this.progress = null;
+              this.progress_message = null;
+            }, 3000);
+            console.log(event.body)
+            this.probabilities = null;
+            if (event.body.length > 0) {
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "anonymisation", event.body.length);
+              this.renderAnonymisation(event.body);
+            } else {
+              this.googleAnalyticsService.eventEmitter("matchvec", "api", "anonymisation", 0);
+              this.progress_message = 'No image ?';
+            }
+        }
+    },
+      error => {
+        this.googleAnalyticsService.eventEmitter("matchvec", "error", "anonymisation", 1);
+        this.loading = false;
+        this.progress_message = 'Error in anonymisation';
+        console.log(error);
+      });
+
+  }
+
+
+  drawDetection() {
+    this.loading = true;
+    const formData = this.addAttachementsToForm();
+    const startTime = new Date();
+    this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            this.progress_message = "Préparation du serveur 🚀"
+            break;
+          case HttpEventType.ResponseHeader:
+            this.progress_message = "Bonne connection ✔️"
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded / event.total * 100);
+            if (this.progress == 100) {
+              this.progress_message = "Calculating 🧠";
+            } else {
+              this.progress_message = "Uploading image 📨";
+            }
+            break;
+          case HttpEventType.Response:
+            this.loading = false;
+            const endTime = new Date();
+            let timeDiff = + endTime - (+startTime);
+            timeDiff /= 1000;
+            this.progress_message = `Fait au bout de ${timeDiff.toFixed(1)} secondes`;
+            setTimeout(()=>{
+              this.progress = null;
+              this.progress_message = null;
             }, 3000);
             if (event.body.length > 0) {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", event.body.length);
               this.renderPredictions(event.body, undefined);
             } else {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "objectDection", 0);
-              this.invalidUrl = 'No image ?';
+              this.progress_message = 'No image ?';
             }
         }
       }, error => {
         this.loading = false;
-        this.progress = null;
+        this.progress_message =  'Error in prediction';
         console.log(error);
-        this.invalidUrl = 'Error in prediction';
         this.googleAnalyticsService.eventEmitter("matchvec", "error", "objectDection", 1);
       });
 
@@ -185,14 +210,13 @@ export class PreviewComponent implements OnInit {
 
   drawPrediction(key) {
     this.loading = true;
-    this.progress_message = "🚀 Préparation du serveur";
     this.clasif_key = key
     const formData = this.addAttachementsToForm();
     const startTime = new Date();
     this.predictionService.classPrediction(formData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:
-            this.progress_message = "Test de connection 📡"
+            this.progress_message = "Préparation du serveur 🚀"
             break;
           case HttpEventType.ResponseHeader:
             this.progress_message = "Bonne connection ✔️"
@@ -213,6 +237,7 @@ export class PreviewComponent implements OnInit {
             this.progress_message = `Fait au bout de ${timeDiff.toFixed(1)} secondes`;
             setTimeout(()=>{
               this.progress = null;
+              this.progress_message = null;
             }, 3000);
             console.log(event.body)
             this.probabilities = event.body;
@@ -221,15 +246,14 @@ export class PreviewComponent implements OnInit {
               this.renderPredictions(event.body, key);
             } else {
               this.googleAnalyticsService.eventEmitter("matchvec", "api", "classification", 0);
-              this.invalidUrl = 'No image ?';
+              this.progress_message = 'No image ?';
             }
         }
     }, error => {
       this.googleAnalyticsService.eventEmitter("matchvec", "error", "classification", 1);
       this.loading = false;
-      this.progress = null;
+      this.progress_message = 'Error in prediction';
       console.log(error);
-      this.invalidUrl = 'Error in prediction';
     });
   }
 

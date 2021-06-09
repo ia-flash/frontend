@@ -17,7 +17,10 @@ export class PredictionsService {
   constructor(private http: HttpClient) { }
 
   imageAnonymisation(formData: FormData | {}) {
-    return this.http.post<PredBox[]>((environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/anonym`, formData);
+    const req = new HttpRequest('POST', (environment.apiMatchvec ? environment.apiMatchvec : '/matchvec') + `/anonym`, formData, {
+      reportProgress: true
+    });
+    return this.http.request(req);
   }
 
   objectDection(formData: FormData | {}) {
