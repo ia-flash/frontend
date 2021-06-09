@@ -122,27 +122,25 @@
 
 <section class="section">
   <div class="container">
-    <div>
-      <div class="field has-addons" *ngIf="progress">
-        <p class="control is-expanded">
-          <progress class="progress is-primary" [attr.value]="progress < 100 ? progress : null" max="100">{{ progress }}%</progress>
-        </p>
-      </div>
-
-      <div class="field is-grouped is-grouped-centered" *ngIf="progress_message">
-        <p class="control">
-          <a class="button is-primary">
-            {{ this.progress_message }}
-          </a>
-        </p>
-        <p class="control" *ngIf="progress < 100">
-          <a class="button is-light">
-            {{ this.progress }}%
-          </a>
-        </p>
-      </div>
-      <br>
+    <div class="field has-addons" *ngIf="progress">
+      <p class="control is-expanded">
+        <progress class="progress is-primary" [attr.value]="progress < 100 ? progress : null" max="100">{{ progress }}%</progress>
+      </p>
     </div>
+
+    <div class="field is-grouped is-grouped-centered" *ngIf="progress_message">
+      <p class="control">
+        <a class="button is-primary">
+          {{ this.progress_message }}
+        </a>
+      </p>
+      <p class="control" *ngIf="progress < 100">
+        <a class="button is-light">
+          {{ this.progress }}%
+        </a>
+      </p>
+    </div>
+    <br>
     <div *ngIf="currentInput">
       <div *ngFor="let key of objectKeys(currentInput); let img_ind = index" class="container">
         <div class="columns is-multiline">
