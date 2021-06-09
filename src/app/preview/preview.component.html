@@ -102,27 +102,27 @@
       <!-- Right side -->
       <div class="level-right">
         <div class="level-item">
-          <button (click)="drawDetection()" class="fr-btn fr-btn--secondary" [class.is-loading]="loading">Détection d'objets</button>
+          <button (click)="drawDetection()" class="fr-btn fr-btn--secondary" [disabled]="loading">Détection d'objets</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction('brand_model_classif')" class="fr-btn" [class.is-loading]="loading">Classification Marque Modèle</button>
+          <button (click)="drawPrediction('brand_model_classif')" class="fr-btn" [disabled]="loading">Classification Marque Modèle</button>
         </div>
         <div class="level-item">
-          <button (click)="drawPrediction('prio_classif')" class="fr-btn  fr-btn--secondary" [class.is-loading]="loading">Véhicule prioritaire</button>
+          <button (click)="drawPrediction('prio_classif')" class="fr-btn  fr-btn--secondary" [disabled]="loading">Véhicule prioritaire</button>
         </div>
         <div class="level-item">
-          <button (click)="drawAnonymisation()" class="fr-btn" [class.is-loading]="loading">Anonymisation</button>
+          <button (click)="drawAnonymisation()" class="fr-btn" [disabled]="loading">Anonymisation</button>
         </div>
       </div>
     </nav>
-    <div *ngIf="progress">
-      <div class="field has-addons">
+    <div>
+      <div class="field has-addons" *ngIf="progress">
         <p class="control is-expanded">
           <progress class="progress is-primary" [attr.value]="progress < 100 ? progress : null" max="100">{{ progress }}%</progress>
         </p>
       </div>
 
-      <div class="field is-grouped is-grouped-centered">
+      <div class="field is-grouped is-grouped-centered" *ngIf="progress_message">
         <p class="control">
           <a class="button is-primary">
             {{ this.progress_message }}

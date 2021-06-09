@@ -107,6 +107,7 @@ export class PreviewComponent implements OnInit {
 
   drawAnonymisation() {
     this.loading = true;
+    this.progress_message = "🚀 Préparation du serveur";
     console.log(this.image_url);
 
     const formData = this.addAttachementsToForm();
@@ -131,6 +132,7 @@ export class PreviewComponent implements OnInit {
 
   drawDetection() {
     this.loading = true;
+    this.progress_message = "🚀 Préparation du serveur";
     const formData = this.addAttachementsToForm();
     const startTime = new Date();
     this.predictionService.objectDection(formData).subscribe((event: HttpEvent<any>) => {
@@ -179,6 +181,7 @@ export class PreviewComponent implements OnInit {
 
   drawPrediction(key) {
     this.loading = true;
+    this.progress_message = "🚀 Préparation du serveur";
     this.clasif_key = key
     const formData = this.addAttachementsToForm();
     const startTime = new Date();
